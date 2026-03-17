@@ -193,6 +193,11 @@ public partial class QuarentenarioContext : DbContext
                 .IsUnicode(false)
                 .HasColumnName("nome");
 
+            // Índice único composto em Nome, IdTipoPatogeno e IdTipoControle
+            entity.HasIndex(e => new { e.Nome, e.IdTipoPatogeno, e.IdTipoControle })
+                  .IsUnique()
+                  .HasDatabaseName("UX_Patogeno_Nome_IdTipoPatogeno_IdTipoControle");
+
             entity.HasOne(d => d.IdTipoControleNavigation).WithMany(p => p.Patogenos)
                 .HasForeignKey(d => d.IdTipoControle)
                 .OnDelete(DeleteBehavior.ClientSetNull)
