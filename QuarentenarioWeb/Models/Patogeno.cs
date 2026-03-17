@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using System;
 using System.Collections.Generic;
 
 namespace QuarentenarioWeb.Models;
@@ -15,8 +16,10 @@ public partial class Patogeno
 
     public virtual ICollection<AnaliseDetalhe> AnaliseDetalhes { get; set; } = new List<AnaliseDetalhe>();
 
+    [ValidateNever] 
     public virtual TipoControle IdTipoControleNavigation { get; set; } = null!;
 
+    [ValidateNever]
     public virtual TipoPatogeno IdTipoPatogenoNavigation { get; set; } = null!;
 
     public virtual ICollection<Material> IdMaterials { get; set; } = new List<Material>();

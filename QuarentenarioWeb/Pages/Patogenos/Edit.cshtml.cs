@@ -30,15 +30,20 @@ namespace QuarentenarioWeb.Pages.Patogenos
                 return NotFound();
             }
 
-            var patogeno =  await _context.Patogenos.FirstOrDefaultAsync(m => m.Id == id);
+            var patogeno = await _context.Patogenos.FirstOrDefaultAsync(m => m.Id == id);
             if (patogeno == null)
             {
                 return NotFound();
             }
             Patogeno = patogeno;
-           ViewData["IdTipoControle"] = new SelectList(_context.TipoControles, "Id", "Id");
-           ViewData["IdTipoPatogeno"] = new SelectList(_context.TipoPatogenos, "Id", "Id");
+            PopularControles();
             return Page();
+        }
+
+        private void PopularControles()
+        {
+            ViewData["IdTipoControle"] = new SelectList(_context.TipoControles, "Id", "Nome");
+            ViewData["IdTipoPatogeno"] = new SelectList(_context.TipoPatogenos, "Id", "Nome");
         }
 
         // To protect from overposting attacks, enable the specific properties you want to bind to.
@@ -47,6 +52,7 @@ namespace QuarentenarioWeb.Pages.Patogenos
         {
             if (!ModelState.IsValid)
             {
+                PopularControles();
                 return Page();
             }
 
