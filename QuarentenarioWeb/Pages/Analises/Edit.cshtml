@@ -16,12 +16,16 @@
             <input type="hidden" asp-for="Analise.Id" />
             <div class="form-group">
                 <label asp-for="Analise.IdMaterial" class="control-label"></label>
-                <select asp-for="Analise.IdMaterial" class="form-control" asp-items="ViewBag.IdMaterial" ></select>
+                <select asp-for="Analise.IdMaterial" class="form-control" asp-items="ViewBag.IdMaterial" >
+                    <option value="">-- Selecione um Material --</option>
+                </select>
                 <span asp-validation-for="Analise.IdMaterial" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Analise.IdCliente" class="control-label"></label>
-                <select asp-for="Analise.IdCliente" class="form-control" asp-items="ViewBag.IdCliente" ></select>
+                <select asp-for="Analise.IdCliente" class="form-control" asp-items="ViewBag.IdCliente" >
+                    <option value="">-- Selecione um Cliente --</option>
+                </select>
                 <span asp-validation-for="Analise.IdCliente" class="text-danger"></span>
             </div>
             <div class="form-group">

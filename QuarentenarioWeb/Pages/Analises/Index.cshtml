@@ -50,10 +50,10 @@
                 @Html.DisplayFor(modelItem => item.Finalizada)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.IdClienteNavigation.Id)
+                @Html.DisplayFor(modelItem => item.IdClienteNavigation.Nome)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.IdMaterialNavigation.Id)
+                @Html.DisplayFor(modelItem => item.IdMaterialNavigation.Nome)
             </td>
             <td>
                 <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |

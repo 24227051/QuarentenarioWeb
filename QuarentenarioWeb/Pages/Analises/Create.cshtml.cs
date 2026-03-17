@@ -21,9 +21,14 @@ namespace QuarentenarioWeb.Pages.Analises
 
         public IActionResult OnGet()
         {
-        ViewData["IdCliente"] = new SelectList(_context.Clientes, "Id", "Id");
-        ViewData["IdMaterial"] = new SelectList(_context.Materials, "Id", "Id");
+            PopularControles();
             return Page();
+        }
+
+        private void PopularControles()
+        {
+            ViewData["IdCliente"] = new SelectList(_context.Clientes, "Id", "Nome");
+            ViewData["IdMaterial"] = new SelectList(_context.Materials, "Id", "Nome");
         }
 
         [BindProperty]
@@ -34,6 +39,7 @@ namespace QuarentenarioWeb.Pages.Analises
         {
             if (!ModelState.IsValid)
             {
+                PopularControles();
                 return Page();
             }
 

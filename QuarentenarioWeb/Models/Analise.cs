@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using System;
 using System.Collections.Generic;
 
 namespace QuarentenarioWeb.Models;
@@ -23,7 +24,9 @@ public partial class Analise
 
     public virtual ICollection<Anexo> Anexos { get; set; } = new List<Anexo>();
 
+    [ValidateNever]
     public virtual Cliente IdClienteNavigation { get; set; } = null!;
 
+    [ValidateNever]
     public virtual Material IdMaterialNavigation { get; set; } = null!;
 }
