@@ -1,0 +1,60 @@
+﻿@page
+@model QuarentenarioWeb.Pages.Anexos.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Anexo[0].NomeArquivo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Anexo[0].NomeArmazenado)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Anexo[0].TipoConteudo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Anexo[0].IdAnaliseDetalheNavigation)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Anexo[0].IdAnaliseNavigation)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Anexo) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.NomeArquivo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NomeArmazenado)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TipoConteudo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdAnaliseDetalheNavigation.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdAnaliseNavigation.Id)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

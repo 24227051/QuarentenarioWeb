@@ -1,0 +1,25 @@
+﻿@page
+@model QuarentenarioWeb.Pages.TiposControle.DetailsModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>TipoControle</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.TipoControle.Nome)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.TipoControle.Nome)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-page="./Edit" asp-route-id="@Model.TipoControle.Id">Edit</a> |
+    <a asp-page="./Index">Back to List</a>
+</div>
