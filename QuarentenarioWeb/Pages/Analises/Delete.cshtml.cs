@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -53,7 +54,19 @@ namespace QuarentenarioWeb.Pages.Analises
             {
                 Analise = analise;
                 _context.Analises.Remove(Analise);
-                await _context.SaveChangesAsync();
+
+                try
+                {
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateException ex)
+                {
+                    ModelState.Remove($"{nameof(Analise)}.{nameof(Analise.Descricao)}");
+                    // Fornece feedback simples na página caso algo falhe
+                    ModelState.AddModelError(string.Empty, "Não foi possível excluir a análise: " + (ex.InnerException?.Message ?? ex.Message));
+                    Analise = analise;
+                    return Page();
+                }
             }
 
             return RedirectToPage("./Index");
