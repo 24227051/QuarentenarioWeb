@@ -20,6 +20,7 @@ namespace QuarentenarioWeb.Pages.AnalisesDetalhes
         }
 
         public IList<AnaliseDetalhe> AnaliseDetalhe { get;set; } = default!;
+        public int? IdAnalise { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -27,6 +28,8 @@ namespace QuarentenarioWeb.Pages.AnalisesDetalhes
             {
                 return NotFound();
             }
+
+            IdAnalise = id;
 
             // Carrega os detalhes da análise, incluindo as informações do patógeno e da análise
             // de acordo com o ID da análise fornecido

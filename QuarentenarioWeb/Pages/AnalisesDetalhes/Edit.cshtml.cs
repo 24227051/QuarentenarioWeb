@@ -23,6 +23,10 @@ namespace QuarentenarioWeb.Pages.AnalisesDetalhes
         [BindProperty]
         public AnaliseDetalhe AnaliseDetalhe { get; set; } = default!;
 
+        public string? AnaliseDescricao { get; set; }
+
+        public IList<Patogeno> Patogenos { get; set; } = default!;
+
         public async Task<IActionResult> OnGetAsync(int? id)
         {
             if (id == null)
@@ -36,14 +40,32 @@ namespace QuarentenarioWeb.Pages.AnalisesDetalhes
                 return NotFound();
             }
             AnaliseDetalhe = analisedetalhe;
+
+            // Load the analysis to get the associated material
+            var analise = await _context.Analises
+                .Include(a => a.IdMaterialNavigation)
+                .FirstOrDefaultAsync(a => a.Id == analisedetalhe.IdAnalise);
+
+            if (analise == null)
+            {
+                return NotFound();
+            }
+
+            AnaliseDescricao = analise.Descricao;
+
+            var materialId = analise.IdMaterial;
+            Patogenos = await _context.Patogenos
+                .Where(p => p.IdMaterials.Any(m => m.Id == materialId))
+                .ToListAsync();
+
             PopularControles();
             return Page();
         }
 
         private void PopularControles()
         {
-            ViewData["IdAnalise"] = new SelectList(_context.Analises, "Id", "Descricao");
-            ViewData["IdPatogeno"] = new SelectList(_context.Patogenos, "Id", "Nome");
+            //ViewData["IdAnalise"] = new SelectList(_context.Analises, "Id", "Descricao");
+            ViewData["IdPatogeno"] = new SelectList(Patogenos, "Id", "Nome");
         }
 
         // To protect from overposting attacks, enable the specific properties you want to bind to.

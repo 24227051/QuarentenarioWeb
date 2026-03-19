@@ -15,11 +15,9 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="AnaliseDetalhe.Id" />
             <div class="form-group">
-                <label asp-for="AnaliseDetalhe.IdAnalise" class="control-label"></label>
-                <select asp-for="AnaliseDetalhe.IdAnalise" class="form-control" asp-items="ViewBag.IdAnalise" >
-                    <option value="">-- Selecione uma Análise --</option>
-                </select>
-                <span asp-validation-for="AnaliseDetalhe.IdAnalise" class="text-danger"></span>
+                <label class="control-label">Analise</label>
+                <div class="form-control-plaintext">@Model.AnaliseDescricao (@Model.AnaliseDetalhe.IdAnalise)</div>
+                <input type="hidden" asp-for="AnaliseDetalhe.IdAnalise" />
             </div>
             <div class="form-group">
                 <label asp-for="AnaliseDetalhe.IdPatogeno" class="control-label"></label>

@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using QuarentenarioWeb.Data;
 using QuarentenarioWeb.Models;
 
@@ -19,16 +20,47 @@ namespace QuarentenarioWeb.Pages.AnalisesDetalhes
             _context = context;
         }
 
-        public IActionResult OnGet()
+        public string? AnaliseDescricao { get; set; }
+
+        public IList<Patogeno> Patogenos { get; set; } = default!;
+
+        public async Task<IActionResult> OnGetAsync(int? id)
         {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            // Load the analysis to get the associated material
+            var analise = await _context.Analises
+                .Include(a => a.IdMaterialNavigation)
+                .FirstOrDefaultAsync(a => a.Id == id.Value);
+
+            if (analise == null)
+            {
+                return NotFound();
+            }
+
+            AnaliseDescricao = analise.Descricao;
+
+            // Initialize the bound model so the hidden field has the analysis id
+            AnaliseDetalhe = new AnaliseDetalhe { IdAnalise = analise.Id };
+
+            // Populate patogeno select list filtered by material associated to this analysis
+            var materialId = analise.IdMaterial;
+            Patogenos = await _context.Patogenos
+                .Where(p => p.IdMaterials.Any(m => m.Id == materialId))
+                .ToListAsync();
+
+            //ViewData["IdPatogeno"] = new SelectList(patogenos, "Id", "Nome");
             PopularControles();
+
             return Page();
         }
 
         private void PopularControles()
         {
-            ViewData["IdAnalise"] = new SelectList(_context.Analises, "Id", "Descricao");
-            ViewData["IdPatogeno"] = new SelectList(_context.Patogenos, "Id", "Nome");
+            ViewData["IdPatogeno"] = new SelectList(Patogenos, "Id", "Nome");
         }
 
         [BindProperty]
