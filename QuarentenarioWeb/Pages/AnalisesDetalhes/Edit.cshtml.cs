@@ -30,15 +30,20 @@ namespace QuarentenarioWeb.Pages.AnalisesDetalhes
                 return NotFound();
             }
 
-            var analisedetalhe =  await _context.AnaliseDetalhes.FirstOrDefaultAsync(m => m.Id == id);
+            var analisedetalhe = await _context.AnaliseDetalhes.FirstOrDefaultAsync(m => m.Id == id);
             if (analisedetalhe == null)
             {
                 return NotFound();
             }
             AnaliseDetalhe = analisedetalhe;
-           ViewData["IdAnalise"] = new SelectList(_context.Analises, "Id", "Id");
-           ViewData["IdPatogeno"] = new SelectList(_context.Patogenos, "Id", "Id");
+            PopularControles();
             return Page();
+        }
+
+        private void PopularControles()
+        {
+            ViewData["IdAnalise"] = new SelectList(_context.Analises, "Id", "Descricao");
+            ViewData["IdPatogeno"] = new SelectList(_context.Patogenos, "Id", "Nome");
         }
 
         // To protect from overposting attacks, enable the specific properties you want to bind to.
@@ -47,6 +52,7 @@ namespace QuarentenarioWeb.Pages.AnalisesDetalhes
         {
             if (!ModelState.IsValid)
             {
+                PopularControles();
                 return Page();
             }
 
