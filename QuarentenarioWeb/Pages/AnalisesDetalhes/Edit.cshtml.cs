@@ -74,7 +74,8 @@ namespace QuarentenarioWeb.Pages.AnalisesDetalhes
                 }
             }
 
-            return RedirectToPage("./Index");
+            // Redireciona para a página de detalhes da análise após a edição passando o ID da análise
+            return RedirectToPage("./Index", new { id = AnaliseDetalhe.IdAnalise });
         }
 
         private bool AnaliseDetalheExists(int id)

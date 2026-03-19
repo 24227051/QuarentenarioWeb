@@ -21,11 +21,26 @@ namespace QuarentenarioWeb.Pages.AnalisesDetalhes
 
         public IList<AnaliseDetalhe> AnaliseDetalhe { get;set; } = default!;
 
-        public async Task OnGetAsync()
+        public async Task<IActionResult> OnGetAsync(int? id)
         {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            // Carrega os detalhes da análise, incluindo as informações do patógeno e da análise
+            // de acordo com o ID da análise fornecido
             AnaliseDetalhe = await _context.AnaliseDetalhes
+                .Where(a => a.IdAnalise == id)
                 .Include(a => a.IdAnaliseNavigation)
                 .Include(a => a.IdPatogenoNavigation).ToListAsync();
+
+            if (AnaliseDetalhe == null)
+            {
+                return NotFound();
+            }
+
+            return Page();
         }
     }
 }
