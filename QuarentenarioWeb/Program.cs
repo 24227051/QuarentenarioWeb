@@ -29,8 +29,27 @@ namespace QuarentenarioWeb
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
+            // Define a pol’tica de autoriza‹o
+            builder.Services.AddAuthorization(options =>
+            {
+                options.AddPolicy("RequireAdminRole", policy => policy.RequireRole("Admin"));
+                options.AddPolicy("RequireLabRole", policy => policy.RequireRole("Lab"));
+            });
+
             // Add services to the container.
-            builder.Services.AddRazorPages();
+            builder.Services.AddRazorPages(options =>
+            {
+                // Limita toda a pasta "Admin" para usu‡rios com a role "Admin"
+                options.Conventions.AuthorizeFolder("/Analises", "RequireLabRole");
+                options.Conventions.AuthorizeFolder("/AnalisesDetalhes", "RequireLabRole");
+                options.Conventions.AuthorizeFolder("/Anexos", "RequireLabRole");
+                options.Conventions.AuthorizeFolder("/Clientes", "RequireLabRole");
+                options.Conventions.AuthorizeFolder("/Materiais", "RequireLabRole");
+                options.Conventions.AuthorizeFolder("/MateriaisPatogenos", "RequireLabRole");
+                options.Conventions.AuthorizeFolder("/Patogenos", "RequireLabRole");
+                options.Conventions.AuthorizeFolder("/TiposControle", "RequireLabRole");
+                options.Conventions.AuthorizeFolder("/TiposPatogeno", "RequireLabRole");
+            });
 
             var app = builder.Build();
 
