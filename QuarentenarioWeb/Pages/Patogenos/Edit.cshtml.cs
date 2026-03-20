@@ -1,13 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using QuarentenarioWeb.Data;
 using QuarentenarioWeb.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace QuarentenarioWeb.Pages.Patogenos
 {
@@ -61,6 +62,13 @@ namespace QuarentenarioWeb.Pages.Patogenos
             try
             {
                 await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateException ex) when (ex.InnerException is SqlException sqlEx && (sqlEx.Number == 2601 || sqlEx.Number == 2627))
+            {
+                // 2601/2627 = violação de índice único (tratamento para condição de corrida)
+                ModelState.AddModelError(string.Empty, "Não foi possível salvar: Já existe um patógeno com esse nome e tipos selecionados.");
+                PopularControles();
+                return Page();
             }
             catch (DbUpdateConcurrencyException)
             {

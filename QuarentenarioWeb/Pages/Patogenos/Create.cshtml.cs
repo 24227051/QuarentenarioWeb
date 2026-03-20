@@ -70,7 +70,7 @@ namespace QuarentenarioWeb.Pages.Patogenos
                 _context.Patogenos.Add(Patogeno);
                 await _context.SaveChangesAsync();
             }
-            catch (DbUpdateException ex) when (ex.InnerException is SqlException sqlEx && sqlEx.Number == 2601)
+            catch (DbUpdateException ex) when (ex.InnerException is SqlException sqlEx && (sqlEx.Number == 2601 || sqlEx.Number == 2627))
             {
                 // 2601/2627 = violação de índice único (tratamento para condição de corrida)
                 ModelState.AddModelError(string.Empty, "Não foi possível salvar: registro já existe (concorrência).");
