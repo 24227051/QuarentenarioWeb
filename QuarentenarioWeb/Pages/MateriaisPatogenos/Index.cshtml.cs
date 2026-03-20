@@ -13,7 +13,7 @@ namespace QuarentenarioWeb.Pages.MateriaisPatogenos
         {
             _context = context;
         }
-
+        public Material? Material { get; set; } = default!;
         public IList<Patogeno> Patogenos { get; set; } = default!;
         public int? IdMaterial { get; set; }
 
@@ -25,6 +25,13 @@ namespace QuarentenarioWeb.Pages.MateriaisPatogenos
             }
 
             IdMaterial = id;
+
+            Material = await _context.Materials.FirstOrDefaultAsync(m => m.Id == IdMaterial);
+
+            if (Material == null)
+            {
+                return NotFound();
+            }
 
             // Carrega os patógenos associados ao material de acordo com o ID do material fornecido
             Patogenos = await _context.Patogenos
