@@ -57,7 +57,7 @@ namespace QuarentenarioWeb.Pages.Patogenos
 
             if (existe)
             {
-                ModelState.AddModelError("Patogeno.Nome", "Já existe um patógeno com esse nome e tipos selecionados.");
+                ModelState.AddModelError(string.Empty, "Não foi possível salvar: Já existe um patógeno com esse nome e tipos selecionados.");
                 PopularControles();
                 return Page();
             }
@@ -73,7 +73,7 @@ namespace QuarentenarioWeb.Pages.Patogenos
             catch (DbUpdateException ex) when (ex.InnerException is SqlException sqlEx && (sqlEx.Number == 2601 || sqlEx.Number == 2627))
             {
                 // 2601/2627 = violação de índice único (tratamento para condição de corrida)
-                ModelState.AddModelError(string.Empty, "Não foi possível salvar: registro já existe (concorrência).");
+                ModelState.AddModelError(string.Empty, "Não foi possível salvar: Já existe um patógeno com esse nome e tipos selecionados.");
                 PopularControles();
                 return Page();
             }
