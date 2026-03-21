@@ -25,8 +25,14 @@ namespace QuarentenarioWeb.Pages.Anexos
             _environment = environment;
         }
 
-        public IActionResult OnGet()
+        public int? IdAnalise { get; set; }
+
+        public int? IdAnaliseDetalhe { get; set; }
+
+        public async Task<IActionResult> OnGetAsync(int? idAnalise, int? idAnaliseDetalhe)
         {
+            IdAnalise = idAnalise;
+            IdAnaliseDetalhe = idAnaliseDetalhe;
             PopularControles();
             return Page();
         }
@@ -90,7 +96,7 @@ namespace QuarentenarioWeb.Pages.Anexos
                 return Page();
             }
 
-            return RedirectToPage("./Index");
+            return RedirectToPage("./Index", new { idAnalise = Anexo.IdAnalise, idAnaliseDetalhe = Anexo.IdAnaliseDetalhe });
         }
 
         private void PopularControles()

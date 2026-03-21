@@ -21,11 +21,33 @@ namespace QuarentenarioWeb.Pages.Anexos
 
         public IList<Anexo> Anexo { get;set; } = default!;
 
-        public async Task OnGetAsync()
+        public int? IdAnalise { get; set; }
+
+        public int? IdAnaliseDetalhe { get; set; }
+
+        public async Task<IActionResult> OnGetAsync(int? idAnalise, int? idAnaliseDetalhe)
         {
+            if (idAnalise == null  && idAnaliseDetalhe == null)
+            {
+                return NotFound();
+            }
+
+            IdAnalise = idAnalise;
+            IdAnaliseDetalhe = idAnaliseDetalhe;
+
+            // Filtra os anexos com base no ID da análise ou no ID do detalhe da análise, se fornecidos
             Anexo = await _context.Anexos
                 .Include(a => a.IdAnaliseDetalheNavigation)
-                .Include(a => a.IdAnaliseNavigation).ToListAsync();
+                .Include(a => a.IdAnaliseNavigation)
+                .Where(a => (idAnalise != null && a.IdAnalise == idAnalise) || (idAnaliseDetalhe != null && a.IdAnaliseDetalhe == idAnaliseDetalhe))
+                .ToListAsync();
+
+            if (Anexo == null)
+            {
+                return NotFound();
+            }
+
+            return Page();
         }
     }
 }

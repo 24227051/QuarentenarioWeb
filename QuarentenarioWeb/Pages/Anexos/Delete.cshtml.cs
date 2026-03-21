@@ -56,7 +56,7 @@ namespace QuarentenarioWeb.Pages.Anexos
                 await _context.SaveChangesAsync();
             }
 
-            return RedirectToPage("./Index");
+            return RedirectToPage("./Index", new { idAnalise = Anexo.IdAnalise, idAnaliseDetalhe = Anexo.IdAnaliseDetalhe });
         }
     }
 }

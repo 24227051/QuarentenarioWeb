@@ -134,7 +134,7 @@ namespace QuarentenarioWeb.Pages.Anexos
                 return Page();
             }
 
-            return RedirectToPage("./Index");
+            return RedirectToPage("./Index", new { idAnalise = Anexo.IdAnalise, idAnaliseDetalhe = Anexo.IdAnaliseDetalhe });
         }
 
         private bool AnexoExists(int id)
