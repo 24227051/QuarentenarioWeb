@@ -29,7 +29,10 @@ namespace QuarentenarioWeb.Pages.Patogenos
                 return NotFound();
             }
 
-            var patogeno = await _context.Patogenos.FirstOrDefaultAsync(m => m.Id == id);
+            var patogeno = await _context.Patogenos
+                .Include(p => p.IdTipoPatogenoNavigation)
+                .Include(p => p.IdTipoControleNavigation)
+                .FirstOrDefaultAsync(m => m.Id == id);
 
             if (patogeno is not null)
             {
