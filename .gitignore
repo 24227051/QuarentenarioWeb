@@ -283,3 +283,4 @@ __pycache__/
 /QuarentenarioWeb/appsettings.json
 
 # End of https://www.toptal.com/developers/gitignore/api/aspnetcore,database
+/QuarentenarioWeb/App_Data/Anexos
