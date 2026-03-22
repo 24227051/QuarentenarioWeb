@@ -40,14 +40,14 @@
                 <span asp-validation-for="Anexo.IdAnaliseDetalhe" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="Salvar" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-page="./Index" asp-route-idAnalise="@Model.Anexo.IdAnalise" asp-route-idAnaliseDetalhe="@Model.Anexo.IdAnaliseDetalhe">Back to List</a>
+    <a asp-page="./Index" asp-route-idAnalise="@Model.Anexo.IdAnalise" asp-route-idAnaliseDetalhe="@Model.Anexo.IdAnaliseDetalhe">Voltar à lista</a>
 </div>
 
 @section Scripts {
