@@ -59,7 +59,7 @@
                 <a asp-page="./Edit" asp-route-id="@item.Id">Editar</a> |
                 <a asp-page="./Details" asp-route-id="@item.Id">Detalhes</a> |
                 <a asp-page="./Delete" asp-route-id="@item.Id">Excluir</a> |
-                <a asp-page="../Anexos/Index" asp-route-idAnaliseDetalhe="@item.Id">Anexos</a>
+                <a asp-page="../Anexos/Index" asp-route-idAnaliseDetalhe="@item.Id" asp-route-idAnalise="@item.IdAnalise">Anexos</a>
             </td>
         </tr>
 }
