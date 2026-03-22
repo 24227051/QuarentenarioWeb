@@ -53,7 +53,17 @@ namespace QuarentenarioWeb.Pages.TiposControle
             {
                 TipoControle = tipocontrole;
                 _context.TipoControles.Remove(TipoControle);
-                await _context.SaveChangesAsync();
+                try
+                {
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateException ex)
+                {
+                    ModelState.Remove($"{nameof(TipoControle)}.{nameof(TipoControle.Nome)}");
+                    // Log the exception (ex) as needed
+                    ModelState.AddModelError(string.Empty, "Não foi possível excluir o tipo de controle. Ele pode estar associado a outros registros.");
+                    return Page();
+                }
             }
 
             return RedirectToPage("./Index");

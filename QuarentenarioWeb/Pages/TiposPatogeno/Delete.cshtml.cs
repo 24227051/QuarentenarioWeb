@@ -53,7 +53,17 @@ namespace QuarentenarioWeb.Pages.TiposPatogeno
             {
                 TipoPatogeno = tipopatogeno;
                 _context.TipoPatogenos.Remove(TipoPatogeno);
-                await _context.SaveChangesAsync();
+                try
+                {
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateException ex)
+                {
+                    ModelState.Remove($"{nameof(TipoPatogeno)}.{nameof(TipoPatogeno.Nome)}");
+                    // Log the exception (ex) as needed
+                    ModelState.AddModelError(string.Empty, "Não foi possível excluir o tipo de patógeno. Ele pode estar associado a outros registros.");
+                    return Page();
+                }
             }
 
             return RedirectToPage("./Index");

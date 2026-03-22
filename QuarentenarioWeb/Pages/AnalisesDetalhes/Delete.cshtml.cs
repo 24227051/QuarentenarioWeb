@@ -29,7 +29,10 @@ namespace QuarentenarioWeb.Pages.AnalisesDetalhes
                 return NotFound();
             }
 
-            var analisedetalhe = await _context.AnaliseDetalhes.FirstOrDefaultAsync(m => m.Id == id);
+            var analisedetalhe = await _context.AnaliseDetalhes
+                .Include(p => p.IdPatogenoNavigation)
+                .Include(p => p.IdAnaliseNavigation)
+                .FirstOrDefaultAsync(m => m.Id == id);
 
             if (analisedetalhe is not null)
             {
@@ -48,12 +51,26 @@ namespace QuarentenarioWeb.Pages.AnalisesDetalhes
                 return NotFound();
             }
 
-            var analisedetalhe = await _context.AnaliseDetalhes.FindAsync(id);
+            var analisedetalhe = await _context.AnaliseDetalhes
+                .Include(p => p.IdPatogenoNavigation)
+                .Include(p => p.IdAnaliseNavigation)
+                .FirstOrDefaultAsync(m => m.Id == id);
+
             if (analisedetalhe != null)
             {
                 AnaliseDetalhe = analisedetalhe;
                 _context.AnaliseDetalhes.Remove(AnaliseDetalhe);
-                await _context.SaveChangesAsync();
+                try
+                {
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateException ex)
+                {
+                    ModelState.Remove($"{nameof(AnaliseDetalhe)}.{nameof(AnaliseDetalhe.Descricao)}");
+                    // Log the exception (ex) as needed
+                    ModelState.AddModelError(string.Empty, "Não foi possível excluir o controle. Ele pode estar relacionado a outros dados.");
+                    return Page();
+                }
             }
 
             return RedirectToPage("./Index", new { id = AnaliseDetalhe.IdAnalise });

@@ -40,17 +40,18 @@
             @Html.DisplayNameFor(model => model.AnaliseDetalhe.IdAnaliseNavigation)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.AnaliseDetalhe.IdAnaliseNavigation.Id)
+            @Html.DisplayFor(model => model.AnaliseDetalhe.IdAnaliseNavigation.Descricao)
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.AnaliseDetalhe.IdPatogenoNavigation)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.AnaliseDetalhe.IdPatogenoNavigation.Id)
+            @Html.DisplayFor(model => model.AnaliseDetalhe.IdPatogenoNavigation.Nome)
         </dd>
     </dl>
     
     <form method="post">
+        <div asp-validation-summary="All" class="text-danger"></div>
         <input type="hidden" asp-for="AnaliseDetalhe.Id" />
         <input type="submit" value="Excluir" class="btn btn-danger" /> |
         <a asp-page="./Index" asp-route-id="@Model.AnaliseDetalhe.IdAnalise">Voltar à lista</a>

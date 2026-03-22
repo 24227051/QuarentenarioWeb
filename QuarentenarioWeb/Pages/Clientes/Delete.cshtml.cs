@@ -53,7 +53,17 @@ namespace QuarentenarioWeb.Pages.Clientes
             {
                 Cliente = cliente;
                 _context.Clientes.Remove(Cliente);
-                await _context.SaveChangesAsync();
+                try
+                {
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateException ex)
+                {
+                    ModelState.Remove($"{nameof(Cliente)}.{nameof(Cliente.Nome)}");
+                    // Log the exception (ex) as needed
+                    ModelState.AddModelError(string.Empty, "Não foi possível excluir o cliente. Ele pode estar associado a outras entidades.");
+                    return Page();
+                }
             }
 
             return RedirectToPage("./Index");

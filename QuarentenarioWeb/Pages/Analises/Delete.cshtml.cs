@@ -30,7 +30,10 @@ namespace QuarentenarioWeb.Pages.Analises
                 return NotFound();
             }
 
-            var analise = await _context.Analises.FirstOrDefaultAsync(m => m.Id == id);
+            var analise = await _context.Analises
+                .Include(p => p.IdClienteNavigation)
+                .Include(p => p.IdMaterialNavigation)
+                .FirstOrDefaultAsync(m => m.Id == id);
 
             if (analise is not null)
             {
@@ -49,7 +52,11 @@ namespace QuarentenarioWeb.Pages.Analises
                 return NotFound();
             }
 
-            var analise = await _context.Analises.FindAsync(id);
+            var analise = await _context.Analises
+                .Include(p => p.IdClienteNavigation)
+                .Include(p => p.IdMaterialNavigation)
+                .FirstOrDefaultAsync(m => m.Id == id);
+
             if (analise != null)
             {
                 Analise = analise;

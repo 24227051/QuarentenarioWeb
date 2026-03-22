@@ -28,7 +28,10 @@ namespace QuarentenarioWeb.Pages.Anexos
                 return NotFound();
             }
 
-            var anexo = await _context.Anexos.FirstOrDefaultAsync(m => m.Id == id);
+            var anexo = await _context.Anexos
+                .Include(p => p.IdAnaliseNavigation)
+                .Include(p => p.IdAnaliseDetalheNavigation)
+                .FirstOrDefaultAsync(m => m.Id == id);
 
             if (anexo is not null)
             {

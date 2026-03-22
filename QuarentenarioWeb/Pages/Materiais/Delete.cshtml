@@ -21,6 +21,7 @@
     </dl>
     
     <form method="post">
+        <div asp-validation-summary="All" class="text-danger"></div>
         <input type="hidden" asp-for="Material.Id" />
         <input type="submit" value="Excluir" class="btn btn-danger" /> |
         <a asp-page="./Index">Voltar à lista</a>

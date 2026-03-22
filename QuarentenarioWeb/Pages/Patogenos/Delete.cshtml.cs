@@ -51,12 +51,26 @@ namespace QuarentenarioWeb.Pages.Patogenos
                 return NotFound();
             }
 
-            var patogeno = await _context.Patogenos.FindAsync(id);
+            var patogeno = await _context.Patogenos
+                .Include(p => p.IdTipoPatogenoNavigation)
+                .Include(p => p.IdTipoControleNavigation)
+                .FirstOrDefaultAsync(m => m.Id == id);
+
             if (patogeno != null)
             {
                 Patogeno = patogeno;
                 _context.Patogenos.Remove(Patogeno);
-                await _context.SaveChangesAsync();
+                try
+                {
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateException ex)
+                {
+                    ModelState.Remove($"{nameof(Patogeno)}.{nameof(Patogeno.Nome)}");
+                    // Log the exception (ex) as needed
+                    ModelState.AddModelError(string.Empty, "Não foi possível excluir o patógeno. Ele pode estar associado a outros registros.");
+                    return Page();
+                }
             }
 
             return RedirectToPage("./Index");

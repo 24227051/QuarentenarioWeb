@@ -28,7 +28,10 @@ namespace QuarentenarioWeb.Pages.AnalisesDetalhes
                 return NotFound();
             }
 
-            var analisedetalhe = await _context.AnaliseDetalhes.FirstOrDefaultAsync(m => m.Id == id);
+            var analisedetalhe = await _context.AnaliseDetalhes
+                .Include(p => p.IdPatogenoNavigation)
+                .Include(p => p.IdAnaliseNavigation)
+                .FirstOrDefaultAsync(m => m.Id == id);
 
             if (analisedetalhe is not null)
             {

@@ -53,7 +53,17 @@ namespace QuarentenarioWeb.Pages.Materiais
             {
                 Material = material;
                 _context.Materials.Remove(Material);
-                await _context.SaveChangesAsync();
+                try
+                {
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateException ex)
+                {
+                    ModelState.Remove($"{nameof(Material)}.{nameof(Material.Nome)}");
+                    // Log the exception (ex) as needed
+                    ModelState.AddModelError(string.Empty, "Não foi possível excluir o material. Ele pode estar associado a outros registros.");
+                    return Page();
+                }
             }
 
             return RedirectToPage("./Index");
