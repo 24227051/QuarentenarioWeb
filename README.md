@@ -21,8 +21,6 @@ Gerenciador de amostras no meio bioquímico através de uma interface web com pe
 - Gerenciador de Análises
 - Gerenciador de Controles
 - Gerenciador de Anexos
-- Stores non-consumable, auto-renewable, and non-renewable subscriptions
-- Covers StoreKit Transactions and Products
 
 ## Requisitos
 .NET 10
