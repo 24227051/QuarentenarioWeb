@@ -28,4 +28,5 @@ Gerenciador de amostras no meio bioquímico através de uma interface web com pe
 ## Primeiros passos
 1. Baixar e instalar o [Visual Studio Community](https://visualstudio.microsoft.com/vs/community/) que é uma IDE gratuita e completa para estudantes, projetos de código aberto e desenvolvedores individuais..
 2. Baixar o projeto clicando no botão verde Code. Por exemplo, baixe o ZIP e instale em um diretório C:\dev
-3. Abrir o projeto clicando no arquivo QuarentenarioWeb.slnx 
+3. Abrir o projeto clicando no arquivo QuarentenarioWeb.slnx e rodar usando http
+4. Criar um usuário. Abrir o SQL Server Management Studio (SSMS). selecionar o Id da tabela AspNetUsers e executar a procedure sp_incluir_funcoes passando o Id
