@@ -12,15 +12,15 @@ O Projeto Integrador trata de resolução de problemas e os estudantes devem ser
 Gerenciador de amostras no meio bioquímico através de uma interface web com persistência em banco de dados e controle de versão do código-fonte 
 
 ### Características
+- Gerenciador de Análises
+- Gerenciador de Anexos
+- Gerenciador de Boletins
+- Gerenciados de Materiais
+- Gerenciador de Materiais x Patógenos
+- Gerenciador de Patógenos
+- Gerenciador de Países
 - Gerenciador de Tipos Controle
 - Gerenciador de Tipos Patógeno
-- Gerenciados de Materiais
-- Gerenciador de Patógenos
-- Gerenciador de Materiais x Patógenos
-- Gerenciador de Clientes
-- Gerenciador de Análises
-- Gerenciador de Controles
-- Gerenciador de Anexos
 
 ## Requisitos
 .NET 10
