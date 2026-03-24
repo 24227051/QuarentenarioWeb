@@ -36,6 +36,7 @@ namespace QuarentenarioWeb.Pages.AnalisesDetalhes
             AnaliseDetalhe = await _context.AnaliseDetalhes
                 .Where(a => a.IdAnalise == id)
                 .Include(a => a.IdAnaliseNavigation)
+                .Include(a => a.IdAnaliseNavigation.IdMaterialNavigation)
                 .Include(a => a.IdPatogenoNavigation).ToListAsync();
 
             if (AnaliseDetalhe == null)

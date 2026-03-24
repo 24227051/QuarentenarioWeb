@@ -58,7 +58,7 @@ namespace QuarentenarioWeb.Pages.Analises
                 AnaliseDetalhe analiseDetalhe = new AnaliseDetalhe
                 {
                     IdPatogeno = patogeno.Id,
-                    Descricao = "Controle: " + patogeno.Nome,
+                    Descricao = "Análise: " + patogeno.Nome,
                     DataInicio = DateTime.Now,
                     Finalizada = false
                 };

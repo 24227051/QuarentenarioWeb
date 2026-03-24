@@ -7,14 +7,14 @@
         
         <h1>Create</h1>
         
-    <h4>Controle</h4>
+    <h4>Análise</h4>
     <hr />
     <div class="row">
     <div class="col-md-4">
     <form method="post">
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label class="control-label">Analise</label>
+                <label class="control-label">@Html.DisplayNameFor(model => model.AnaliseDetalhe.IdAnalise)</label>
                 <div class="form-control-plaintext">@Model.AnaliseDescricao (@Model.AnaliseDetalhe.IdAnalise)</div>
                 <input type="hidden" asp-for="AnaliseDetalhe.IdAnalise" />
             </div>

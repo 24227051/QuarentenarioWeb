@@ -5,7 +5,7 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Controles</h1>
+<h1>Análises</h1>
 
 <p>
     <a asp-page="./Create" asp-route-id="@Model.IdAnalise">Criar Novo</a>
@@ -27,6 +27,9 @@
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.AnaliseDetalhe[0].IdAnaliseNavigation)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AnaliseDetalhe[0].IdAnaliseNavigation.IdMaterialNavigation)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.AnaliseDetalhe[0].IdPatogenoNavigation)
@@ -53,6 +56,9 @@
                 @Html.DisplayFor(modelItem => item.IdAnaliseNavigation.Descricao)
             </td>
             <td>
+                @Html.DisplayFor(modelItem => item.IdAnaliseNavigation.IdMaterialNavigation.Nome)
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.IdPatogenoNavigation.Nome)
             </td>
             <td>
@@ -66,5 +72,5 @@
     </tbody>
 </table>
 <div>
-    <a asp-page="/Analises/Index">Voltar à lista de Análises</a>
+    <a asp-page="/Boletins/Index">Voltar à lista de Boletins</a>
 </div>

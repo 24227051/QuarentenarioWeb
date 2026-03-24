@@ -40,10 +40,10 @@ namespace QuarentenarioWeb
             builder.Services.AddRazorPages(options =>
             {
                 // Limita toda a pasta "Admin" para usu‡rios com a role "Admin"
-                options.Conventions.AuthorizeFolder("/Analises", "RequireLabRole");
                 options.Conventions.AuthorizeFolder("/AnalisesDetalhes", "RequireLabRole");
                 options.Conventions.AuthorizeFolder("/Anexos", "RequireLabRole");
-                options.Conventions.AuthorizeFolder("/Clientes", "RequireLabRole");
+                options.Conventions.AuthorizeFolder("/Boletins", "RequireLabRole");
+                options.Conventions.AuthorizeFolder("/Paises", "RequireLabRole");
                 options.Conventions.AuthorizeFolder("/Materiais", "RequireLabRole");
                 options.Conventions.AuthorizeFolder("/MateriaisPatogenos", "RequireLabRole");
                 options.Conventions.AuthorizeFolder("/Patogenos", "RequireLabRole");

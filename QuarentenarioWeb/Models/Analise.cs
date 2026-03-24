@@ -12,7 +12,7 @@ public partial class Analise
     [Display(Name = "Id Material")]
     public int IdMaterial { get; set; }
 
-    [Display(Name = "Id Cliente")]
+    [Display(Name = "Id País")]
     public int IdCliente { get; set; }
 
     public string Descricao { get; set; } = null!;
@@ -28,7 +28,7 @@ public partial class Analise
     public virtual ICollection<Anexo> Anexos { get; set; } = new List<Anexo>();
 
     [ValidateNever]
-    [Display(Name = "Cliente")]
+    [Display(Name = "País")]
     public virtual Cliente IdClienteNavigation { get; set; } = null!;
 
     [ValidateNever]

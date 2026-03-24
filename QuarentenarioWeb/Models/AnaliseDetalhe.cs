@@ -9,7 +9,7 @@ public partial class AnaliseDetalhe
 {
     public int Id { get; set; }
 
-    [Display(Name = "Id Análise")]
+    [Display(Name = "Id Boletim")]
     public int IdAnalise { get; set; }
 
     [Display(Name = "Id Patogeno")]
@@ -26,7 +26,7 @@ public partial class AnaliseDetalhe
     public virtual ICollection<Anexo> Anexos { get; set; } = new List<Anexo>();
 
     [ValidateNever]
-    [Display(Name = "Análise")]
+    [Display(Name = "Boletim")]
     public virtual Analise IdAnaliseNavigation { get; set; } = null!;
 
     [ValidateNever]
