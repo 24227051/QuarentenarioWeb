@@ -15,7 +15,7 @@ Gerenciador de amostras no meio bioquímico através de uma interface web com pe
 - Gerenciador de Análises
 - Gerenciador de Anexos
 - Gerenciador de Boletins
-- Gerenciados de Materiais
+- Gerenciador de Materiais
 - Gerenciador de Materiais x Patógenos
 - Gerenciador de Patógenos
 - Gerenciador de Países
