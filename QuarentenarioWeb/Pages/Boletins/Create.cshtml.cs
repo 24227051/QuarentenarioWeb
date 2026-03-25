@@ -60,7 +60,8 @@ namespace QuarentenarioWeb.Pages.Analises
                     IdPatogeno = patogeno.Id,
                     Descricao = "Análise: " + patogeno.Nome,
                     DataInicio = DateTime.Now,
-                    Finalizada = false
+                    Finalizada = false,
+                    Positivo = false
                 };
                 analiseDetalhes.Add(analiseDetalhe);
             }

@@ -25,14 +25,36 @@ namespace QuarentenarioWeb.Pages.Anexos
             _environment = environment;
         }
 
+        [BindProperty]
         public int? IdAnalise { get; set; }
 
+        [BindProperty]
         public int? IdAnaliseDetalhe { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? idAnalise, int? idAnaliseDetalhe)
         {
+            if (idAnalise == null && idAnaliseDetalhe == null)
+            {
+                return NotFound();
+            }
+
             IdAnalise = idAnalise;
             IdAnaliseDetalhe = idAnaliseDetalhe;
+
+            if (IdAnalise != null)
+            { 
+                Analises = await _context.Analises
+                            .Where(a => a.Id == IdAnalise)
+                            .ToListAsync();
+            }
+
+            if (IdAnaliseDetalhe != null)
+            {
+                AnaliseDetalhes = await _context.AnaliseDetalhes
+                            .Where(a => a.Id == IdAnaliseDetalhe)
+                            .ToListAsync();
+            }
+
             PopularControles();
             return Page();
         }
@@ -41,11 +63,31 @@ namespace QuarentenarioWeb.Pages.Anexos
         public Anexo Anexo { get; set; } = default!;
 
         [BindProperty]
+        public IList<Analise> Analises { get; set; } = default!;
+
+        [BindProperty]
+        public IList<AnaliseDetalhe> AnaliseDetalhes { get; set; } = default!;
+
+        [BindProperty]
         public IFormFile? Upload { get; set; }
 
         // For more information, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
+            if (IdAnalise != null)
+            {
+                Analises = await _context.Analises
+                            .Where(a => a.Id == IdAnalise)
+                            .ToListAsync();
+            }
+
+            if (IdAnaliseDetalhe != null)
+            {
+                AnaliseDetalhes = await _context.AnaliseDetalhes
+                            .Where(a => a.Id == IdAnaliseDetalhe)
+                            .ToListAsync();
+            }
+
             // Validate file upload
             if (Upload == null || Upload.Length == 0)
             {
@@ -96,13 +138,20 @@ namespace QuarentenarioWeb.Pages.Anexos
                 return Page();
             }
 
-            return RedirectToPage("./Index", new { idAnalise = Anexo.IdAnalise, idAnaliseDetalhe = Anexo.IdAnaliseDetalhe });
+            return RedirectToPage("./Index", new { idAnalise = IdAnalise, idAnaliseDetalhe = IdAnaliseDetalhe });
         }
 
         private void PopularControles()
         {
-            ViewData["IdAnaliseDetalhe"] = new SelectList(_context.AnaliseDetalhes, "Id", "Descricao");
-            ViewData["IdAnalise"] = new SelectList(_context.Analises, "Id", "Descricao");
+            if (AnaliseDetalhes != null)
+            {
+                ViewData["IdAnaliseDetalhe"] = new SelectList(AnaliseDetalhes, "Id", "Descricao");
+            }
+
+            if (Analises != null)
+            {
+                ViewData["IdAnalise"] = new SelectList(Analises, "Id", "Descricao");
+            }
         }
     }
 }

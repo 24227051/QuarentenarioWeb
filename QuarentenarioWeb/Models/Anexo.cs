@@ -17,15 +17,15 @@ public partial class Anexo
     [Display(Name = "Tipo Conteudo")]
     public string TipoConteudo { get; set; } = null!;
 
-    [Display(Name = "Id Análise")]
+    [Display(Name = "Id Boletim")]
     public int? IdAnalise { get; set; }
 
-    [Display(Name = "Id Controle")]
+    [Display(Name = "Id Análise")]
     public int? IdAnaliseDetalhe { get; set; }
 
-    [Display(Name = "Controle")]
+    [Display(Name = "Análise")]
     public virtual AnaliseDetalhe? IdAnaliseDetalheNavigation { get; set; }
 
-    [Display(Name = "Análise")]
+    [Display(Name = "Boletim")]
     public virtual Analise? IdAnaliseNavigation { get; set; }
 }

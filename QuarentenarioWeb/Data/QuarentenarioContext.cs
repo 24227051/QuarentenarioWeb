@@ -55,6 +55,7 @@ public partial class QuarentenarioContext : DbContext
                 .IsUnicode(false)
                 .HasColumnName("descricao");
             entity.Property(e => e.Finalizada).HasColumnName("finalizada");
+            entity.Property(e => e.Positivo).HasColumnName("Positivo");
             entity.Property(e => e.IdCliente).HasColumnName("idCliente");
             entity.Property(e => e.IdMaterial).HasColumnName("idMaterial");
 
@@ -85,6 +86,7 @@ public partial class QuarentenarioContext : DbContext
                 .IsUnicode(false)
                 .HasColumnName("descricao");
             entity.Property(e => e.Finalizada).HasColumnName("finalizada");
+            entity.Property(e => e.Positivo).HasColumnName("Positivo");
             entity.Property(e => e.IdAnalise).HasColumnName("idAnalise");
             entity.Property(e => e.IdPatogeno).HasColumnName("idPatogeno");
 

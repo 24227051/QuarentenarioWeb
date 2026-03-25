@@ -28,14 +28,14 @@
             <div class="form-group">
                 <label asp-for="Anexo.IdAnalise" class="control-label"></label>
                 <select asp-for="Anexo.IdAnalise" class="form-control" asp-items="ViewBag.IdAnalise" >
-                    <option value="">-- Selecione uma Análise --</option>
+                    <option value="">-- Selecione um Boletim --</option>
                 </select>
                 <span asp-validation-for="Anexo.IdAnalise" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Anexo.IdAnaliseDetalhe" class="control-label"></label>
                 <select asp-for="Anexo.IdAnaliseDetalhe" class="form-control" asp-items="ViewBag.IdAnaliseDetalhe" >
-                    <option value="">-- Selecione uma Análise Detalhe --</option>
+                    <option value="">-- Selecione uma Análise --</option>
                 </select>
                 <span asp-validation-for="Anexo.IdAnaliseDetalhe" class="text-danger"></span>
             </div>
@@ -47,7 +47,7 @@
 </div>
 
 <div>
-    <a asp-page="./Index" asp-route-idAnalise="@Model.Anexo.IdAnalise" asp-route-idAnaliseDetalhe="@Model.Anexo.IdAnaliseDetalhe">Voltar à lista</a>
+    <a asp-page="./Index" asp-route-idAnalise="@Model.IdAnalise" asp-route-idAnaliseDetalhe="@Model.IdAnaliseDetalhe">Voltar à lista</a>
 </div>
 
 @section Scripts {

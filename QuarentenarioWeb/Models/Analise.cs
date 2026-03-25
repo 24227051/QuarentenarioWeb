@@ -23,6 +23,8 @@ public partial class Analise
 
     public bool Finalizada { get; set; }
 
+    public bool Positivo { get; set; } = false;
+
     public virtual ICollection<AnaliseDetalhe> AnaliseDetalhes { get; set; } = new List<AnaliseDetalhe>();
 
     public virtual ICollection<Anexo> Anexos { get; set; } = new List<Anexo>();

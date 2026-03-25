@@ -31,6 +31,12 @@ namespace QuarentenarioWeb.Pages.Anexos
         [BindProperty]
         public IFormFile? Upload { get; set; }
 
+        [BindProperty]
+        public int? IdAnalise { get; set; }
+
+        [BindProperty]
+        public int? IdAnaliseDetalhe { get; set; }
+
         public async Task<IActionResult> OnGetAsync(int? id)
         {
             if (id == null)
@@ -43,6 +49,10 @@ namespace QuarentenarioWeb.Pages.Anexos
             {
                 return NotFound();
             }
+
+            IdAnalise = anexo.IdAnalise;
+            IdAnaliseDetalhe = anexo.IdAnaliseDetalhe;
+
             Anexo = anexo;
             PopularControles();
             return Page();
@@ -134,7 +144,7 @@ namespace QuarentenarioWeb.Pages.Anexos
                 return Page();
             }
 
-            return RedirectToPage("./Index", new { idAnalise = Anexo.IdAnalise, idAnaliseDetalhe = Anexo.IdAnaliseDetalhe });
+            return RedirectToPage("./Index", new { idAnalise = IdAnalise, idAnaliseDetalhe = IdAnaliseDetalhe });
         }
 
         private bool AnexoExists(int id)

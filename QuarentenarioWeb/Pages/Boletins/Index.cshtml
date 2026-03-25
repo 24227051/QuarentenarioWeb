@@ -26,6 +26,9 @@
                 @Html.DisplayNameFor(model => model.Analise[0].Finalizada)
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.Analise[0].Positivo)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.Analise[0].IdClienteNavigation)
             </th>
             <th>
@@ -48,6 +51,9 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Finalizada)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Positivo)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.IdClienteNavigation.Nome)

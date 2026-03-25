@@ -21,8 +21,10 @@ namespace QuarentenarioWeb.Pages.Anexos
 
         public IList<Anexo> Anexo { get;set; } = default!;
 
+        [BindProperty]
         public int? IdAnalise { get; set; }
 
+        [BindProperty]
         public int? IdAnaliseDetalhe { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? idAnalise, int? idAnaliseDetalhe)
