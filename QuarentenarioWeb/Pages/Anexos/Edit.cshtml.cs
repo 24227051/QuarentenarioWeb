@@ -44,7 +44,11 @@ namespace QuarentenarioWeb.Pages.Anexos
                 return NotFound();
             }
 
-            var anexo = await _context.Anexos.FirstOrDefaultAsync(m => m.Id == id);
+            var anexo = await _context.Anexos
+                .Include(p => p.IdAnaliseNavigation)
+                .Include(p => p.IdAnaliseDetalheNavigation)
+                .FirstOrDefaultAsync(m => m.Id == id);
+
             if (anexo == null)
             {
                 return NotFound();
@@ -55,6 +59,12 @@ namespace QuarentenarioWeb.Pages.Anexos
 
             Anexo = anexo;
             PopularControles();
+
+            if (IdAnalise == null)
+            {
+                IdAnalise = Anexo.IdAnaliseDetalheNavigation!.IdAnalise;
+            }
+
             return Page();
         }
 
@@ -78,7 +88,11 @@ namespace QuarentenarioWeb.Pages.Anexos
                 return Page();
             }
 
-            var existing = await _context.Anexos.AsNoTracking().FirstOrDefaultAsync(a => a.Id == Anexo.Id);
+            var existing = await _context.Anexos.AsNoTracking()
+                .Include(p => p.IdAnaliseNavigation)
+                .Include(p => p.IdAnaliseDetalheNavigation)
+                .FirstOrDefaultAsync(a => a.Id == Anexo.Id);
+
             if (existing == null)
             {
                 return NotFound();
@@ -144,7 +158,12 @@ namespace QuarentenarioWeb.Pages.Anexos
                 return Page();
             }
 
-            return RedirectToPage("./Index", new { idAnalise = IdAnalise, idAnaliseDetalhe = IdAnaliseDetalhe });
+            if (Anexo.IdAnalise == null)
+            {
+                Anexo.IdAnalise = existing.IdAnaliseDetalheNavigation!.IdAnalise;
+            }
+
+            return RedirectToPage("./Index", new { idAnalise = Anexo.IdAnalise, idAnaliseDetalhe = Anexo.IdAnaliseDetalhe });
         }
 
         private bool AnexoExists(int id)

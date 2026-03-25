@@ -19,6 +19,12 @@ namespace QuarentenarioWeb.Pages.Anexos
             _context = context;
         }
 
+        [BindProperty]
+        public int? IdAnalise { get; set; }
+
+        [BindProperty]
+        public int? IdAnaliseDetalhe { get; set; }
+
         public Anexo Anexo { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(int? id)
@@ -33,14 +39,22 @@ namespace QuarentenarioWeb.Pages.Anexos
                 .Include(p => p.IdAnaliseDetalheNavigation)
                 .FirstOrDefaultAsync(m => m.Id == id);
 
-            if (anexo is not null)
+            if (anexo == null)
             {
-                Anexo = anexo;
-
-                return Page();
+                return NotFound();
             }
 
-            return NotFound();
+            IdAnalise = anexo.IdAnalise;
+            IdAnaliseDetalhe = anexo.IdAnaliseDetalhe;
+
+            Anexo = anexo;
+
+            if (IdAnalise == null)
+            {
+                IdAnalise = Anexo.IdAnaliseDetalheNavigation!.IdAnalise;
+            }
+
+            return Page();
         }
     }
 }

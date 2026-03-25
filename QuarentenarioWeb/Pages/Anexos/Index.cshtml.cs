@@ -38,11 +38,26 @@ namespace QuarentenarioWeb.Pages.Anexos
             IdAnaliseDetalhe = idAnaliseDetalhe;
 
             // Filtra os anexos com base no ID da análise ou no ID do detalhe da análise, se fornecidos
-            Anexo = await _context.Anexos
-                .Include(a => a.IdAnaliseDetalheNavigation)
-                .Include(a => a.IdAnaliseNavigation)
-                .Where(a => (idAnalise != null && a.IdAnalise == idAnalise) || (idAnaliseDetalhe != null && a.IdAnaliseDetalhe == idAnaliseDetalhe))
-                .ToListAsync();
+            if (IdAnalise != null)
+            {
+                Anexo = await _context.Anexos
+                                .Include(a => a.IdAnaliseDetalheNavigation)
+                                .Include(a => a.IdAnaliseNavigation)
+                                .Where(a => a.IdAnalise == IdAnalise)
+                                .ToListAsync();
+            }
+
+            if (IdAnaliseDetalhe != null)
+            {
+                Anexo = await _context.Anexos
+                                .Include(a => a.IdAnaliseDetalheNavigation)
+                                .Include(a => a.IdAnaliseNavigation)
+                                .Where(a => a.IdAnaliseDetalhe == IdAnaliseDetalhe)
+                                .ToListAsync();
+            }
+
+
+
 
             if (Anexo == null)
             {
