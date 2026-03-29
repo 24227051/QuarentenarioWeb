@@ -81,7 +81,7 @@ public partial class QuarentenarioContext : DbContext
             entity.HasOne(d => d.IdPatogenoNavigation).WithMany(p => p.Analises)
                 .HasForeignKey(d => d.IdPatogeno)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_AnaliseDetalhe_Patogeno");
+                .HasConstraintName("FK_Analise_Patogeno");
         });
 
         modelBuilder.Entity<Anexo>(entity =>
