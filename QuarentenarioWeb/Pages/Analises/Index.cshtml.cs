@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using QuarentenarioWeb.Data;
 using QuarentenarioWeb.Models;
 
-namespace QuarentenarioWeb.Pages.AnalisesDetalhes
+namespace QuarentenarioWeb.Pages.Analises
 {
     public class IndexModel : PageModel
     {
@@ -19,7 +19,7 @@ namespace QuarentenarioWeb.Pages.AnalisesDetalhes
             _context = context;
         }
 
-        public IList<AnaliseDetalhe> AnaliseDetalhe { get;set; } = default!;
+        public IList<Analise> AnaliseDetalhe { get;set; } = default!;
         public int? IdBoletim { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
@@ -33,7 +33,7 @@ namespace QuarentenarioWeb.Pages.AnalisesDetalhes
 
             // Carrega os detalhes da análise, incluindo as informações do patógeno e da análise
             // de acordo com o ID da análise fornecido
-            AnaliseDetalhe = await _context.AnaliseDetalhes
+            AnaliseDetalhe = await _context.Analises
                 .Where(a => a.IdBoletim == id)
                 .Include(a => a.IdBoletimNavigation)
                 .Include(a => a.IdBoletimNavigation.IdMaterialNavigation)

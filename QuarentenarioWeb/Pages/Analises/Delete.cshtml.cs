@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using QuarentenarioWeb.Data;
 using QuarentenarioWeb.Models;
 
-namespace QuarentenarioWeb.Pages.AnalisesDetalhes
+namespace QuarentenarioWeb.Pages.Analises
 {
     public class DeleteModel : PageModel
     {
@@ -20,7 +20,7 @@ namespace QuarentenarioWeb.Pages.AnalisesDetalhes
         }
 
         [BindProperty]
-        public AnaliseDetalhe AnaliseDetalhe { get; set; } = default!;
+        public Analise Analise { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -29,14 +29,14 @@ namespace QuarentenarioWeb.Pages.AnalisesDetalhes
                 return NotFound();
             }
 
-            var analisedetalhe = await _context.AnaliseDetalhes
+            var analisedetalhe = await _context.Analises
                 .Include(p => p.IdPatogenoNavigation)
                 .Include(p => p.IdBoletimNavigation)
                 .FirstOrDefaultAsync(m => m.Id == id);
 
             if (analisedetalhe is not null)
             {
-                AnaliseDetalhe = analisedetalhe;
+                Analise = analisedetalhe;
 
                 return Page();
             }
@@ -51,29 +51,29 @@ namespace QuarentenarioWeb.Pages.AnalisesDetalhes
                 return NotFound();
             }
 
-            var analisedetalhe = await _context.AnaliseDetalhes
+            var analisedetalhe = await _context.Analises
                 .Include(p => p.IdPatogenoNavigation)
                 .Include(p => p.IdBoletimNavigation)
                 .FirstOrDefaultAsync(m => m.Id == id);
 
             if (analisedetalhe != null)
             {
-                AnaliseDetalhe = analisedetalhe;
-                _context.AnaliseDetalhes.Remove(AnaliseDetalhe);
+                Analise = analisedetalhe;
+                _context.Analises.Remove(Analise);
                 try
                 {
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateException ex)
                 {
-                    ModelState.Remove($"{nameof(AnaliseDetalhe)}.{nameof(AnaliseDetalhe.Descricao)}");
+                    ModelState.Remove($"{nameof(Analise)}.{nameof(Analise.Descricao)}");
                     // Log the exception (ex) as needed
                     ModelState.AddModelError(string.Empty, "Não foi possível excluir o controle. Ele pode estar relacionado a outros dados.");
                     return Page();
                 }
             }
 
-            return RedirectToPage("./Index", new { id = AnaliseDetalhe.IdBoletim });
+            return RedirectToPage("./Index", new { id = Analise.IdBoletim });
         }
     }
 }

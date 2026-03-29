@@ -35,7 +35,7 @@ namespace QuarentenarioWeb.Pages.Anexos
         public int? IdBoletim { get; set; }
 
         [BindProperty]
-        public int? IdAnaliseDetalhe { get; set; }
+        public int? IdAnalise { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -46,7 +46,7 @@ namespace QuarentenarioWeb.Pages.Anexos
 
             var anexo = await _context.Anexos
                 .Include(p => p.IdBoletimNavigation)
-                .Include(p => p.IdAnaliseDetalheNavigation)
+                .Include(p => p.IdAnaliseNavigation)
                 .FirstOrDefaultAsync(m => m.Id == id);
 
             if (anexo == null)
@@ -55,14 +55,14 @@ namespace QuarentenarioWeb.Pages.Anexos
             }
 
             IdBoletim = anexo.IdBoletim;
-            IdAnaliseDetalhe = anexo.IdAnaliseDetalhe;
+            IdAnalise = anexo.IdAnalise;
 
             Anexo = anexo;
             PopularControles();
 
             if (IdBoletim == null)
             {
-                IdBoletim = Anexo.IdAnaliseDetalheNavigation!.IdBoletim;
+                IdBoletim = Anexo.IdAnaliseNavigation!.IdBoletim;
             }
 
             return Page();
@@ -70,7 +70,7 @@ namespace QuarentenarioWeb.Pages.Anexos
 
         private void PopularControles()
         {
-            ViewData["IdAnaliseDetalhe"] = new SelectList(_context.AnaliseDetalhes, "Id", "Descricao");
+            ViewData["IdAnalise"] = new SelectList(_context.Analises, "Id", "Descricao");
             ViewData["IdBoletim"] = new SelectList(_context.Boletims, "Id", "Descricao");
         }
 
@@ -90,7 +90,7 @@ namespace QuarentenarioWeb.Pages.Anexos
 
             var existing = await _context.Anexos.AsNoTracking()
                 .Include(p => p.IdBoletimNavigation)
-                .Include(p => p.IdAnaliseDetalheNavigation)
+                .Include(p => p.IdAnaliseNavigation)
                 .FirstOrDefaultAsync(a => a.Id == Anexo.Id);
 
             if (existing == null)
@@ -160,10 +160,10 @@ namespace QuarentenarioWeb.Pages.Anexos
 
             if (Anexo.IdBoletim == null)
             {
-                Anexo.IdBoletim = existing.IdAnaliseDetalheNavigation!.IdBoletim;
+                Anexo.IdBoletim = existing.IdAnaliseNavigation!.IdBoletim;
             }
 
-            return RedirectToPage("./Index", new { idBoletim = Anexo.IdBoletim, idAnaliseDetalhe = Anexo.IdAnaliseDetalhe });
+            return RedirectToPage("./Index", new { idBoletim = Anexo.IdBoletim, idAnalise = Anexo.IdAnalise });
         }
 
         private bool AnexoExists(int id)

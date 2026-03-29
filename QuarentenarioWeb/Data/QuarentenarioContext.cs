@@ -16,7 +16,7 @@ public partial class QuarentenarioContext : DbContext
     {
     }
 
-    public virtual DbSet<AnaliseDetalhe> AnaliseDetalhes { get; set; }
+    public virtual DbSet<Analise> Analises { get; set; }
 
     public virtual DbSet<Anexo> Anexos { get; set; }
 
@@ -51,9 +51,11 @@ public partial class QuarentenarioContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<AnaliseDetalhe>(entity =>
+        modelBuilder.Entity<Analise>(entity =>
         {
-            entity.ToTable("AnaliseDetalhe");
+            entity.HasKey(e => e.Id).HasName("PK_AnaliseDetalhe");
+
+            entity.ToTable("Analise");
 
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.DataInicio)
@@ -71,12 +73,12 @@ public partial class QuarentenarioContext : DbContext
             entity.Property(e => e.IdPatogeno).HasColumnName("idPatogeno");
             entity.Property(e => e.Positivo).HasColumnName("positivo");
 
-            entity.HasOne(d => d.IdBoletimNavigation).WithMany(p => p.AnaliseDetalhes)
+            entity.HasOne(d => d.IdBoletimNavigation).WithMany(p => p.Analises)
                 .HasForeignKey(d => d.IdBoletim)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_AnaliseDetalhe_Boletim");
+                .HasConstraintName("FK_Analise_Boletim");
 
-            entity.HasOne(d => d.IdPatogenoNavigation).WithMany(p => p.AnaliseDetalhes)
+            entity.HasOne(d => d.IdPatogenoNavigation).WithMany(p => p.Analises)
                 .HasForeignKey(d => d.IdPatogeno)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_AnaliseDetalhe_Patogeno");
@@ -87,7 +89,7 @@ public partial class QuarentenarioContext : DbContext
             entity.ToTable("Anexo");
 
             entity.Property(e => e.Id).HasColumnName("id");
-            entity.Property(e => e.IdAnaliseDetalhe).HasColumnName("idAnaliseDetalhe");
+            entity.Property(e => e.IdAnalise).HasColumnName("idAnalise");
             entity.Property(e => e.IdBoletim).HasColumnName("idBoletim");
             entity.Property(e => e.NomeArmazenado)
                 .HasMaxLength(500)
@@ -102,9 +104,9 @@ public partial class QuarentenarioContext : DbContext
                 .IsUnicode(false)
                 .HasColumnName("tipoConteudo");
 
-            entity.HasOne(d => d.IdAnaliseDetalheNavigation).WithMany(p => p.Anexos)
-                .HasForeignKey(d => d.IdAnaliseDetalhe)
-                .HasConstraintName("FK_Anexo_AnaliseDetalhe");
+            entity.HasOne(d => d.IdAnaliseNavigation).WithMany(p => p.Anexos)
+                .HasForeignKey(d => d.IdAnalise)
+                .HasConstraintName("FK_Anexo_Analise");
 
             entity.HasOne(d => d.IdBoletimNavigation).WithMany(p => p.Anexos)
                 .HasForeignKey(d => d.IdBoletim)

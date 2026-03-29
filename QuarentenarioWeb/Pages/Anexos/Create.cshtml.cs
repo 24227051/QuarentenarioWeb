@@ -29,17 +29,17 @@ namespace QuarentenarioWeb.Pages.Anexos
         public int? IdBoletim { get; set; }
 
         [BindProperty]
-        public int? IdAnaliseDetalhe { get; set; }
+        public int? IdAnalise { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(int? idBoletim, int? idAnaliseDetalhe)
+        public async Task<IActionResult> OnGetAsync(int? idBoletim, int? idAnalise)
         {
-            if (idBoletim == null && idAnaliseDetalhe == null)
+            if (idBoletim == null && idAnalise == null)
             {
                 return NotFound();
             }
 
             IdBoletim = idBoletim;
-            IdAnaliseDetalhe = idAnaliseDetalhe;
+            IdAnalise = idAnalise;
 
             if (IdBoletim != null)
             { 
@@ -48,10 +48,10 @@ namespace QuarentenarioWeb.Pages.Anexos
                             .ToListAsync();
             }
 
-            if (IdAnaliseDetalhe != null)
+            if (IdAnalise != null)
             {
-                AnaliseDetalhes = await _context.AnaliseDetalhes
-                            .Where(a => a.Id == IdAnaliseDetalhe)
+                Analises = await _context.Analises
+                            .Where(a => a.Id == IdAnalise)
                             .ToListAsync();
             }
 
@@ -66,7 +66,7 @@ namespace QuarentenarioWeb.Pages.Anexos
         public IList<Boletim> Boletins { get; set; } = default!;
 
         [BindProperty]
-        public IList<AnaliseDetalhe> AnaliseDetalhes { get; set; } = default!;
+        public IList<Analise> Analises { get; set; } = default!;
 
         [BindProperty]
         public IFormFile? Upload { get; set; }
@@ -81,10 +81,10 @@ namespace QuarentenarioWeb.Pages.Anexos
                             .ToListAsync();
             }
 
-            if (IdAnaliseDetalhe != null)
+            if (IdAnalise != null)
             {
-                AnaliseDetalhes = await _context.AnaliseDetalhes
-                            .Where(a => a.Id == IdAnaliseDetalhe)
+                Analises = await _context.Analises
+                            .Where(a => a.Id == IdAnalise)
                             .ToListAsync();
             }
 
@@ -138,14 +138,14 @@ namespace QuarentenarioWeb.Pages.Anexos
                 return Page();
             }
 
-            return RedirectToPage("./Index", new { idBoletim = IdBoletim, idAnaliseDetalhe = IdAnaliseDetalhe });
+            return RedirectToPage("./Index", new { idBoletim = IdBoletim, idAnalise = IdAnalise });
         }
 
         private void PopularControles()
         {
-            if (AnaliseDetalhes != null)
+            if (Analises != null)
             {
-                ViewData["IdAnaliseDetalhe"] = new SelectList(AnaliseDetalhes, "Id", "Descricao");
+                ViewData["IdAnalise"] = new SelectList(Analises, "Id", "Descricao");
             }
 
             if (Boletins != null)

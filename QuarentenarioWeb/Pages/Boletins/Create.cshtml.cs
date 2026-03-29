@@ -50,12 +50,12 @@ namespace QuarentenarioWeb.Pages.Boletins
                 .FirstOrDefault()?.ToList() ?? new List<Patogeno>();
 
 
-            ICollection<AnaliseDetalhe> analiseDetalhes = new List<AnaliseDetalhe>();
+            ICollection<Analise> analises = new List<Analise>();
 
-            // Para cada Patogeno associado ao Material, cria um novo AnaliseDetalhe e adiciona à coleção de AnaliseDetalhes da Boletim
+            // Para cada Patogeno associado ao Material, cria um novo Analise e adiciona à coleção de Analises da Boletim
             foreach (Patogeno patogeno in idPatogenos)
             {
-                AnaliseDetalhe analiseDetalhe = new AnaliseDetalhe
+                Analise analise = new Analise
                 {
                     IdPatogeno = patogeno.Id,
                     Descricao = "Análise: " + patogeno.Nome,
@@ -63,10 +63,10 @@ namespace QuarentenarioWeb.Pages.Boletins
                     Finalizada = false,
                     Positivo = false
                 };
-                analiseDetalhes.Add(analiseDetalhe);
+                analises.Add(analise);
             }
 
-            Boletim.AnaliseDetalhes = analiseDetalhes;
+            Boletim.Analises = analises;
             _context.Boletims.Add(Boletim);
             await _context.SaveChangesAsync();
 

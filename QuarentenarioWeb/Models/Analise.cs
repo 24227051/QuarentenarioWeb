@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace QuarentenarioWeb.Models;
 
-public partial class AnaliseDetalhe
+public partial class Analise
 {
     public int Id { get; set; }
 

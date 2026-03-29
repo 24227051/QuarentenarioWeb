@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using QuarentenarioWeb.Data;
 using QuarentenarioWeb.Models;
 
-namespace QuarentenarioWeb.Pages.AnalisesDetalhes
+namespace QuarentenarioWeb.Pages.Analises
 {
     public class DetailsModel : PageModel
     {
@@ -19,7 +19,7 @@ namespace QuarentenarioWeb.Pages.AnalisesDetalhes
             _context = context;
         }
 
-        public AnaliseDetalhe AnaliseDetalhe { get; set; } = default!;
+        public Analise Analise { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -28,14 +28,14 @@ namespace QuarentenarioWeb.Pages.AnalisesDetalhes
                 return NotFound();
             }
 
-            var analisedetalhe = await _context.AnaliseDetalhes
+            var analisedetalhe = await _context.Analises
                 .Include(p => p.IdPatogenoNavigation)
                 .Include(p => p.IdBoletimNavigation)
                 .FirstOrDefaultAsync(m => m.Id == id);
 
             if (analisedetalhe is not null)
             {
-                AnaliseDetalhe = analisedetalhe;
+                Analise = analisedetalhe;
 
                 return Page();
             }

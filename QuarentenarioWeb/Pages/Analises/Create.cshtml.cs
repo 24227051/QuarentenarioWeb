@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using QuarentenarioWeb.Data;
 using QuarentenarioWeb.Models;
 
-namespace QuarentenarioWeb.Pages.AnalisesDetalhes
+namespace QuarentenarioWeb.Pages.Analises
 {
     public class CreateModel : PageModel
     {
@@ -44,7 +44,7 @@ namespace QuarentenarioWeb.Pages.AnalisesDetalhes
             AnaliseDescricao = analise.Descricao;
 
             // Initialize the bound model so the hidden field has the analysis id
-            AnaliseDetalhe = new AnaliseDetalhe { IdBoletim = analise.Id };
+            Analise = new Analise { IdBoletim = analise.Id };
 
             // Populate patogeno select list filtered by material associated to this analysis
             var materialId = analise.IdMaterial;
@@ -64,7 +64,7 @@ namespace QuarentenarioWeb.Pages.AnalisesDetalhes
         }
 
         [BindProperty]
-        public AnaliseDetalhe AnaliseDetalhe { get; set; } = default!;
+        public Analise Analise { get; set; } = default!;
 
         // For more information, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
@@ -75,10 +75,10 @@ namespace QuarentenarioWeb.Pages.AnalisesDetalhes
                 return Page();
             }
 
-            _context.AnaliseDetalhes.Add(AnaliseDetalhe);
+            _context.Analises.Add(Analise);
             await _context.SaveChangesAsync();
 
-            return RedirectToPage("./Index", new { id = AnaliseDetalhe.IdBoletim });
+            return RedirectToPage("./Index", new { id = Analise.IdBoletim });
         }
     }
 }

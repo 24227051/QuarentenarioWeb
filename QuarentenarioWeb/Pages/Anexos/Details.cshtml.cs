@@ -23,7 +23,7 @@ namespace QuarentenarioWeb.Pages.Anexos
         public int? IdBoletim { get; set; }
 
         [BindProperty]
-        public int? IdAnaliseDetalhe { get; set; }
+        public int? IdAnalise { get; set; }
 
         public Anexo Anexo { get; set; } = default!;
 
@@ -36,7 +36,7 @@ namespace QuarentenarioWeb.Pages.Anexos
 
             var anexo = await _context.Anexos
                 .Include(p => p.IdBoletimNavigation)
-                .Include(p => p.IdAnaliseDetalheNavigation)
+                .Include(p => p.IdAnaliseNavigation)
                 .FirstOrDefaultAsync(m => m.Id == id);
 
             if (anexo == null)
@@ -45,13 +45,13 @@ namespace QuarentenarioWeb.Pages.Anexos
             }
 
             IdBoletim = anexo.IdBoletim;
-            IdAnaliseDetalhe = anexo.IdAnaliseDetalhe;
+            IdAnalise = anexo.IdAnalise;
 
             Anexo = anexo;
 
             if (IdBoletim == null)
             {
-                IdBoletim = Anexo.IdAnaliseDetalheNavigation!.IdBoletim;
+                IdBoletim = Anexo.IdAnaliseNavigation!.IdBoletim;
             }
 
             return Page();

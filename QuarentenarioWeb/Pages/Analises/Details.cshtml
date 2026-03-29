@@ -1,0 +1,61 @@
+﻿@page
+@model QuarentenarioWeb.Pages.Analises.DetailsModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Detalhes</h1>
+
+<div>
+    <h4>Análise</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Analise.Descricao)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Analise.Descricao)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Analise.DataInicio)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Analise.DataInicio)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Analise.DataTermino)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Analise.DataTermino)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Analise.Finalizada)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Analise.Finalizada)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Analise.Positivo)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Analise.Positivo)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Analise.IdBoletimNavigation)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Analise.IdBoletimNavigation.Descricao)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Analise.IdPatogenoNavigation)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Analise.IdPatogenoNavigation.Nome)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-page="./Edit" asp-route-id="@Model.Analise.Id">Editar</a> |
+    <a asp-page="./Index" asp-route-id="@Model.Analise.IdBoletim">Voltar à lista</a>
+</div>

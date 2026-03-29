@@ -85,7 +85,7 @@ namespace QuarentenarioWeb.Migrations.Quarentenario
                     b.ToTable("Boletim", (string)null);
                 });
 
-            modelBuilder.Entity("QuarentenarioWeb.Models.AnaliseDetalhe", b =>
+            modelBuilder.Entity("QuarentenarioWeb.Models.Analise", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -128,7 +128,7 @@ namespace QuarentenarioWeb.Migrations.Quarentenario
 
                     b.HasIndex("IdPatogeno");
 
-                    b.ToTable("AnaliseDetalhe", (string)null);
+                    b.ToTable("Analise", (string)null);
                 });
 
             modelBuilder.Entity("QuarentenarioWeb.Models.Anexo", b =>
@@ -144,7 +144,7 @@ namespace QuarentenarioWeb.Migrations.Quarentenario
                         .HasColumnType("int")
                         .HasColumnName("idAnalise");
 
-                    b.Property<int?>("IdAnaliseDetalhe")
+                    b.Property<int?>("IdAnalise")
                         .HasColumnType("int")
                         .HasColumnName("idAnaliseDetalhe");
 
@@ -173,7 +173,7 @@ namespace QuarentenarioWeb.Migrations.Quarentenario
 
                     b.HasIndex("IdBoletim");
 
-                    b.HasIndex("IdAnaliseDetalhe");
+                    b.HasIndex("IdAnalise");
 
                     b.ToTable("Anexo", (string)null);
                 });
@@ -358,16 +358,16 @@ namespace QuarentenarioWeb.Migrations.Quarentenario
                     b.Navigation("IdMaterialNavigation");
                 });
 
-            modelBuilder.Entity("QuarentenarioWeb.Models.AnaliseDetalhe", b =>
+            modelBuilder.Entity("QuarentenarioWeb.Models.Analise", b =>
                 {
                     b.HasOne("QuarentenarioWeb.Models.Boletim", "IdAnaliseNavigation")
-                        .WithMany("AnaliseDetalhes")
+                        .WithMany("Analises")
                         .HasForeignKey("IdBoletim")
                         .IsRequired()
                         .HasConstraintName("FK_AnaliseDetalhe_Analise");
 
                     b.HasOne("QuarentenarioWeb.Models.Patogeno", "IdPatogenoNavigation")
-                        .WithMany("AnaliseDetalhes")
+                        .WithMany("Analises")
                         .HasForeignKey("IdPatogeno")
                         .IsRequired()
                         .HasConstraintName("FK_AnaliseDetalhe_Patogeno");
@@ -384,9 +384,9 @@ namespace QuarentenarioWeb.Migrations.Quarentenario
                         .HasForeignKey("IdBoletim")
                         .HasConstraintName("FK_Anexo_Analise");
 
-                    b.HasOne("QuarentenarioWeb.Models.AnaliseDetalhe", "IdAnaliseDetalheNavigation")
+                    b.HasOne("QuarentenarioWeb.Models.Analise", "IdAnaliseDetalheNavigation")
                         .WithMany("Anexos")
-                        .HasForeignKey("IdAnaliseDetalhe")
+                        .HasForeignKey("IdAnalise")
                         .HasConstraintName("FK_Anexo_AnaliseDetalhe");
 
                     b.Navigation("IdAnaliseDetalheNavigation");
@@ -415,12 +415,12 @@ namespace QuarentenarioWeb.Migrations.Quarentenario
 
             modelBuilder.Entity("QuarentenarioWeb.Models.Boletim", b =>
                 {
-                    b.Navigation("AnaliseDetalhes");
+                    b.Navigation("Analises");
 
                     b.Navigation("Anexos");
                 });
 
-            modelBuilder.Entity("QuarentenarioWeb.Models.AnaliseDetalhe", b =>
+            modelBuilder.Entity("QuarentenarioWeb.Models.Analise", b =>
                 {
                     b.Navigation("Anexos");
                 });
@@ -437,7 +437,7 @@ namespace QuarentenarioWeb.Migrations.Quarentenario
 
             modelBuilder.Entity("QuarentenarioWeb.Models.Patogeno", b =>
                 {
-                    b.Navigation("AnaliseDetalhes");
+                    b.Navigation("Analises");
                 });
 
             modelBuilder.Entity("QuarentenarioWeb.Models.TipoControle", b =>

@@ -25,8 +25,8 @@
                 </select>
             </div>
             <div class="form-group">
-                <label asp-for="Anexo.IdAnaliseDetalhe" class="control-label"></label>
-                <select asp-for="Anexo.IdAnaliseDetalhe" class ="form-control" asp-items="ViewBag.IdAnaliseDetalhe" >
+                <label asp-for="Anexo.IdAnalise" class="control-label"></label>
+                <select asp-for="Anexo.IdAnalise" class="form-control" asp-items="ViewBag.IdAnalise">
                     <option value="">-- Selecione uma Análise --</option>
                 </select>
             </div>
@@ -38,7 +38,7 @@
 </div>
 
 <div>
-    <a asp-page="./Index" asp-route-idBoletim="@Model.IdBoletim" asp-route-idAnaliseDetalhe="@Model.IdAnaliseDetalhe">Voltar à lista</a>
+    <a asp-page="./Index" asp-route-idBoletim="@Model.IdBoletim" asp-route-idAnalise="@Model.IdAnalise">Voltar à lista</a>
 </div>
 
 @section Scripts {

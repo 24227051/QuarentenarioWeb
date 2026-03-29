@@ -1,0 +1,61 @@
+﻿@page "{id:int}"
+@model QuarentenarioWeb.Pages.Analises.CreateModel
+
+        @{
+        ViewData["Title"] = "Create";
+        }
+        
+        <h1>Create</h1>
+        
+    <h4>Análise</h4>
+    <hr />
+    <div class="row">
+    <div class="col-md-4">
+    <form method="post">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label class="control-label">@Html.DisplayNameFor(model => model.Analise.IdBoletim)</label>
+                <div class="form-control-plaintext">@Model.AnaliseDescricao (@Model.Analise.IdBoletim)</div>
+                <input type="hidden" asp-for="Analise.IdBoletim" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Analise.IdPatogeno" class="control-label"></label>
+                <select asp-for="Analise.IdPatogeno" class="form-control" asp-items="ViewBag.IdPatogeno">
+                    <option value="">-- Selecione um Patógeno --</option>
+                </select>
+                <span asp-validation-for="Analise.IdPatogeno" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Analise.Descricao" class="control-label"></label>
+                <input asp-for="Analise.Descricao" class="form-control" />
+                <span asp-validation-for="Analise.Descricao" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Analise.DataTermino" class="control-label"></label>
+                <input asp-for="Analise.DataTermino" class="form-control" />
+                <span asp-validation-for="Analise.DataTermino" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="Analise.Finalizada" /> @Html.DisplayNameFor(model => model.Analise.Finalizada)
+                </label>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="Analise.Positivo" /> @Html.DisplayNameFor(model => model.Analise.Positivo)
+                </label>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Criar" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index" asp-route-id="@Model.Analise.IdBoletim">Voltar à lista</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -8,7 +8,7 @@
 <h1>Anexos</h1>
 
 <p>
-    <a asp-page="Create" asp-route-idBoletim="@Model.IdBoletim" asp-route-idAnaliseDetalhe="@Model.IdAnaliseDetalhe">Criar Novo</a>
+    <a asp-page="Create" asp-route-idBoletim="@Model.IdBoletim" asp-route-idAnalise="@Model.IdAnalise">Criar Novo</a>
 </p>
 <table class="table">
     <thead>
@@ -23,7 +23,7 @@
                 @Html.DisplayNameFor(model => model.Anexo[0].TipoConteudo)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Anexo[0].IdAnaliseDetalheNavigation)
+                @Html.DisplayNameFor(model => model.Anexo[0].IdAnaliseNavigation)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Anexo[0].IdBoletimNavigation)
@@ -44,7 +44,7 @@
                 @Html.DisplayFor(modelItem => item.TipoConteudo)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.IdAnaliseDetalheNavigation!.Descricao)
+                @Html.DisplayFor(modelItem => item.IdAnaliseNavigation!.Descricao)
             </td>
             <td>
                     @Html.DisplayFor(modelItem => item.IdBoletimNavigation!.Descricao)
@@ -61,5 +61,5 @@
 </table>
 <div>
     <a asp-page="/Boletins/Index">Voltar à lista de Boletins</a> |
-    <a asp-page="/AnalisesDetalhes/Index" asp-route-id="@Model.IdBoletim">Voltar à lista de Análises</a>
+    <a asp-page="/Analises/Index" asp-route-id="@Model.IdBoletim">Voltar à lista de Análises</a>
 </div>

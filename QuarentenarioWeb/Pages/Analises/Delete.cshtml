@@ -1,0 +1,65 @@
+﻿@page
+@model QuarentenarioWeb.Pages.Analises.DeleteModel
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h1>Excluir</h1>
+
+<h3>Tem certeza de que deseja excluir isso?</h3>
+<div>
+    <h4>Análise</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Analise.Descricao)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Analise.Descricao)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Analise.DataInicio)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Analise.DataInicio)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Analise.DataTermino)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Analise.DataTermino)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Analise.Finalizada)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Analise.Finalizada)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Analise.Positivo)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Analise.Positivo)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Analise.IdBoletimNavigation)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Analise.IdBoletimNavigation.Descricao)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Analise.IdPatogenoNavigation)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Analise.IdPatogenoNavigation.Nome)
+        </dd>
+    </dl>
+    
+    <form method="post">
+        <div asp-validation-summary="All" class="text-danger"></div>
+        <input type="hidden" asp-for="Analise.Id" />
+        <input type="submit" value="Excluir" class="btn btn-danger" /> |
+        <a asp-page="./Index" asp-route-id="@Model.Analise.IdBoletim">Voltar à lista</a>
+    </form>
+</div>

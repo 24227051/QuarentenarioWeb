@@ -15,9 +15,9 @@ public partial class Anexo
 
     public int? IdBoletim { get; set; }
 
-    public int? IdAnaliseDetalhe { get; set; }
+    public int? IdAnalise { get; set; }
 
-    public virtual AnaliseDetalhe? IdAnaliseDetalheNavigation { get; set; }
+    public virtual Analise? IdAnaliseNavigation { get; set; }
 
     public virtual Boletim? IdBoletimNavigation { get; set; }
 }

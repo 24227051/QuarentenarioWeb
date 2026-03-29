@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using QuarentenarioWeb.Data;
 using QuarentenarioWeb.Models;
 
-namespace QuarentenarioWeb.Pages.AnalisesDetalhes
+namespace QuarentenarioWeb.Pages.Analises
 {
     public class EditModel : PageModel
     {
@@ -21,9 +21,9 @@ namespace QuarentenarioWeb.Pages.AnalisesDetalhes
         }
 
         [BindProperty]
-        public AnaliseDetalhe AnaliseDetalhe { get; set; } = default!;
+        public Analise Analise { get; set; } = default!;
 
-        public string? AnaliseDescricao { get; set; }
+        public string? BoletimDescricao { get; set; }
 
         public IList<Patogeno> Patogenos { get; set; } = default!;
 
@@ -34,26 +34,26 @@ namespace QuarentenarioWeb.Pages.AnalisesDetalhes
                 return NotFound();
             }
 
-            var analisedetalhe = await _context.AnaliseDetalhes.FirstOrDefaultAsync(m => m.Id == id);
-            if (analisedetalhe == null)
-            {
-                return NotFound();
-            }
-            AnaliseDetalhe = analisedetalhe;
-
-            // Load the analysis to get the associated material
-            var analise = await _context.Boletims
-                .Include(a => a.IdMaterialNavigation)
-                .FirstOrDefaultAsync(a => a.Id == analisedetalhe.IdBoletim);
-
+            var analise = await _context.Analises.FirstOrDefaultAsync(m => m.Id == id);
             if (analise == null)
             {
                 return NotFound();
             }
+            Analise = analise;
 
-            AnaliseDescricao = analise.Descricao;
+            // Load the analysis to get the associated material
+            var boletim = await _context.Boletims
+                .Include(a => a.IdMaterialNavigation)
+                .FirstOrDefaultAsync(a => a.Id == analise.IdBoletim);
 
-            var materialId = analise.IdMaterial;
+            if (boletim == null)
+            {
+                return NotFound();
+            }
+
+            BoletimDescricao = boletim.Descricao;
+
+            var materialId = boletim.IdMaterial;
             Patogenos = await _context.Patogenos
                 .Where(p => p.IdMaterials.Any(m => m.Id == materialId))
                 .ToListAsync();
@@ -78,7 +78,7 @@ namespace QuarentenarioWeb.Pages.AnalisesDetalhes
                 return Page();
             }
 
-            _context.Attach(AnaliseDetalhe).State = EntityState.Modified;
+            _context.Attach(Analise).State = EntityState.Modified;
 
             try
             {
@@ -86,7 +86,7 @@ namespace QuarentenarioWeb.Pages.AnalisesDetalhes
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!AnaliseDetalheExists(AnaliseDetalhe.Id))
+                if (!AnaliseDetalheExists(Analise.Id))
                 {
                     return NotFound();
                 }
@@ -97,12 +97,12 @@ namespace QuarentenarioWeb.Pages.AnalisesDetalhes
             }
 
             // Redireciona para a página de detalhes da análise após a edição passando o ID da análise
-            return RedirectToPage("./Index", new { id = AnaliseDetalhe.IdBoletim });
+            return RedirectToPage("./Index", new { id = Analise.IdBoletim });
         }
 
         private bool AnaliseDetalheExists(int id)
         {
-            return _context.AnaliseDetalhes.Any(e => e.Id == id);
+            return _context.Analises.Any(e => e.Id == id);
         }
     }
 }
