@@ -20,7 +20,7 @@ namespace QuarentenarioWeb.Pages.Anexos
         }
 
         [BindProperty]
-        public int? IdAnalise { get; set; }
+        public int? IdBoletim { get; set; }
 
         [BindProperty]
         public int? IdAnaliseDetalhe { get; set; }
@@ -35,7 +35,7 @@ namespace QuarentenarioWeb.Pages.Anexos
             }
 
             var anexo = await _context.Anexos
-                .Include(p => p.IdAnaliseNavigation)
+                .Include(p => p.IdBoletimNavigation)
                 .Include(p => p.IdAnaliseDetalheNavigation)
                 .FirstOrDefaultAsync(m => m.Id == id);
 
@@ -44,14 +44,14 @@ namespace QuarentenarioWeb.Pages.Anexos
                 return NotFound();
             }
 
-            IdAnalise = anexo.IdAnalise;
+            IdBoletim = anexo.IdBoletim;
             IdAnaliseDetalhe = anexo.IdAnaliseDetalhe;
 
             Anexo = anexo;
 
-            if (IdAnalise == null)
+            if (IdBoletim == null)
             {
-                IdAnalise = Anexo.IdAnaliseDetalheNavigation!.IdAnalise;
+                IdBoletim = Anexo.IdAnaliseDetalheNavigation!.IdBoletim;
             }
 
             return Page();

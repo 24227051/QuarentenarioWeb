@@ -42,9 +42,9 @@ namespace QuarentenarioWeb.Pages.AnalisesDetalhes
             AnaliseDetalhe = analisedetalhe;
 
             // Load the analysis to get the associated material
-            var analise = await _context.Analises
+            var analise = await _context.Boletims
                 .Include(a => a.IdMaterialNavigation)
-                .FirstOrDefaultAsync(a => a.Id == analisedetalhe.IdAnalise);
+                .FirstOrDefaultAsync(a => a.Id == analisedetalhe.IdBoletim);
 
             if (analise == null)
             {
@@ -64,7 +64,7 @@ namespace QuarentenarioWeb.Pages.AnalisesDetalhes
 
         private void PopularControles()
         {
-            //ViewData["IdAnalise"] = new SelectList(_context.Analises, "Id", "Descricao");
+            //ViewData["IdBoletim"] = new SelectList(_context.Boletins, "Id", "Descricao");
             ViewData["IdPatogeno"] = new SelectList(Patogenos, "Id", "Nome");
         }
 
@@ -97,7 +97,7 @@ namespace QuarentenarioWeb.Pages.AnalisesDetalhes
             }
 
             // Redireciona para a página de detalhes da análise após a edição passando o ID da análise
-            return RedirectToPage("./Index", new { id = AnaliseDetalhe.IdAnalise });
+            return RedirectToPage("./Index", new { id = AnaliseDetalhe.IdBoletim });
         }
 
         private bool AnaliseDetalheExists(int id)

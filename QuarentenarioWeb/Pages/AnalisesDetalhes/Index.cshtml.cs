@@ -20,7 +20,7 @@ namespace QuarentenarioWeb.Pages.AnalisesDetalhes
         }
 
         public IList<AnaliseDetalhe> AnaliseDetalhe { get;set; } = default!;
-        public int? IdAnalise { get; set; }
+        public int? IdBoletim { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -29,14 +29,14 @@ namespace QuarentenarioWeb.Pages.AnalisesDetalhes
                 return NotFound();
             }
 
-            IdAnalise = id;
+            IdBoletim = id;
 
             // Carrega os detalhes da análise, incluindo as informações do patógeno e da análise
             // de acordo com o ID da análise fornecido
             AnaliseDetalhe = await _context.AnaliseDetalhes
-                .Where(a => a.IdAnalise == id)
-                .Include(a => a.IdAnaliseNavigation)
-                .Include(a => a.IdAnaliseNavigation.IdMaterialNavigation)
+                .Where(a => a.IdBoletim == id)
+                .Include(a => a.IdBoletimNavigation)
+                .Include(a => a.IdBoletimNavigation.IdMaterialNavigation)
                 .Include(a => a.IdPatogenoNavigation).ToListAsync();
 
             if (AnaliseDetalhe == null)

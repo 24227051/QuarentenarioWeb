@@ -1,5 +1,5 @@
 ﻿@page
-@model QuarentenarioWeb.Pages.Analises.DeleteModel
+@model QuarentenarioWeb.Pages.Boletins.DeleteModel
 
 @{
     ViewData["Title"] = "Delete";
@@ -13,52 +13,52 @@
     <hr />
     <dl class="row">
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Analise.Descricao)
+            @Html.DisplayNameFor(model => model.Boletim.Descricao)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Analise.Descricao)
+            @Html.DisplayFor(model => model.Boletim.Descricao)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Analise.DataInicio)
+            @Html.DisplayNameFor(model => model.Boletim.DataInicio)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Analise.DataInicio)
+            @Html.DisplayFor(model => model.Boletim.DataInicio)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Analise.DataTermino)
+            @Html.DisplayNameFor(model => model.Boletim.DataTermino)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Analise.DataTermino)
+            @Html.DisplayFor(model => model.Boletim.DataTermino)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Analise.Finalizada)
+            @Html.DisplayNameFor(model => model.Boletim.Finalizada)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Analise.Finalizada)
+            @Html.DisplayFor(model => model.Boletim.Finalizada)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Analise.Positivo)
+            @Html.DisplayNameFor(model => model.Boletim.Positivo)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Analise.Positivo)
+            @Html.DisplayFor(model => model.Boletim.Positivo)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Analise.IdPaisNavigation)
+            @Html.DisplayNameFor(model => model.Boletim.IdPaisNavigation)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Analise.IdPaisNavigation.Nome)
+            @Html.DisplayFor(model => model.Boletim.IdPaisNavigation.Nome)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Analise.IdMaterialNavigation)
+            @Html.DisplayNameFor(model => model.Boletim.IdMaterialNavigation)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Analise.IdMaterialNavigation.Nome)
+            @Html.DisplayFor(model => model.Boletim.IdMaterialNavigation.Nome)
         </dd>
     </dl>
     
     <form method="post">
         <div asp-validation-summary="All" class="text-danger"></div>
-        <input type="hidden" asp-for="Analise.Id" />
+        <input type="hidden" asp-for="Boletim.Id" />
         <input type="submit" value="Excluir" class="btn btn-danger" /> |
         <a asp-page="./Index">Voltar à lista</a>
     </form>

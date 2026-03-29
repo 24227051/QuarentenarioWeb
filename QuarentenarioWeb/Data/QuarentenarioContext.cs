@@ -16,8 +16,6 @@ public partial class QuarentenarioContext : DbContext
     {
     }
 
-    public virtual DbSet<Analise> Analises { get; set; }
-
     public virtual DbSet<AnaliseDetalhe> AnaliseDetalhes { get; set; }
 
     public virtual DbSet<Anexo> Anexos { get; set; }
@@ -33,6 +31,8 @@ public partial class QuarentenarioContext : DbContext
     public virtual DbSet<AspNetUserLogin> AspNetUserLogins { get; set; }
 
     public virtual DbSet<AspNetUserToken> AspNetUserTokens { get; set; }
+
+    public virtual DbSet<Boletim> Boletims { get; set; }
 
     public virtual DbSet<Importacao> Importacaos { get; set; }
 
@@ -51,37 +51,6 @@ public partial class QuarentenarioContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<Analise>(entity =>
-        {
-            entity.ToTable("Analise");
-
-            entity.Property(e => e.Id).HasColumnName("id");
-            entity.Property(e => e.DataInicio)
-                .HasDefaultValueSql("(getdate())", "DF_Analise_DataInicio")
-                .HasColumnType("datetime")
-                .HasColumnName("dataInicio");
-            entity.Property(e => e.DataTermino)
-                .HasColumnType("datetime")
-                .HasColumnName("dataTermino");
-            entity.Property(e => e.Descricao)
-                .IsUnicode(false)
-                .HasColumnName("descricao");
-            entity.Property(e => e.Finalizada).HasColumnName("finalizada");
-            entity.Property(e => e.IdMaterial).HasColumnName("idMaterial");
-            entity.Property(e => e.IdPais).HasColumnName("idPais");
-            entity.Property(e => e.Positivo).HasColumnName("positivo");
-
-            entity.HasOne(d => d.IdMaterialNavigation).WithMany(p => p.Analises)
-                .HasForeignKey(d => d.IdMaterial)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Analise_Material");
-
-            entity.HasOne(d => d.IdPaisNavigation).WithMany(p => p.Analises)
-                .HasForeignKey(d => d.IdPais)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Analise_Pais");
-        });
-
         modelBuilder.Entity<AnaliseDetalhe>(entity =>
         {
             entity.ToTable("AnaliseDetalhe");
@@ -98,14 +67,14 @@ public partial class QuarentenarioContext : DbContext
                 .IsUnicode(false)
                 .HasColumnName("descricao");
             entity.Property(e => e.Finalizada).HasColumnName("finalizada");
-            entity.Property(e => e.IdAnalise).HasColumnName("idAnalise");
+            entity.Property(e => e.IdBoletim).HasColumnName("idBoletim");
             entity.Property(e => e.IdPatogeno).HasColumnName("idPatogeno");
             entity.Property(e => e.Positivo).HasColumnName("positivo");
 
-            entity.HasOne(d => d.IdAnaliseNavigation).WithMany(p => p.AnaliseDetalhes)
-                .HasForeignKey(d => d.IdAnalise)
+            entity.HasOne(d => d.IdBoletimNavigation).WithMany(p => p.AnaliseDetalhes)
+                .HasForeignKey(d => d.IdBoletim)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_AnaliseDetalhe_Analise");
+                .HasConstraintName("FK_AnaliseDetalhe_Boletim");
 
             entity.HasOne(d => d.IdPatogenoNavigation).WithMany(p => p.AnaliseDetalhes)
                 .HasForeignKey(d => d.IdPatogeno)
@@ -118,8 +87,8 @@ public partial class QuarentenarioContext : DbContext
             entity.ToTable("Anexo");
 
             entity.Property(e => e.Id).HasColumnName("id");
-            entity.Property(e => e.IdAnalise).HasColumnName("idAnalise");
             entity.Property(e => e.IdAnaliseDetalhe).HasColumnName("idAnaliseDetalhe");
+            entity.Property(e => e.IdBoletim).HasColumnName("idBoletim");
             entity.Property(e => e.NomeArmazenado)
                 .HasMaxLength(500)
                 .IsUnicode(false)
@@ -133,13 +102,13 @@ public partial class QuarentenarioContext : DbContext
                 .IsUnicode(false)
                 .HasColumnName("tipoConteudo");
 
-            entity.HasOne(d => d.IdAnaliseNavigation).WithMany(p => p.Anexos)
-                .HasForeignKey(d => d.IdAnalise)
-                .HasConstraintName("FK_Anexo_Analise");
-
             entity.HasOne(d => d.IdAnaliseDetalheNavigation).WithMany(p => p.Anexos)
                 .HasForeignKey(d => d.IdAnaliseDetalhe)
                 .HasConstraintName("FK_Anexo_AnaliseDetalhe");
+
+            entity.HasOne(d => d.IdBoletimNavigation).WithMany(p => p.Anexos)
+                .HasForeignKey(d => d.IdBoletim)
+                .HasConstraintName("FK_Anexo_Boletim");
         });
 
         modelBuilder.Entity<AspNetRole>(entity =>
@@ -212,6 +181,39 @@ public partial class QuarentenarioContext : DbContext
             entity.Property(e => e.Name).HasMaxLength(128);
 
             entity.HasOne(d => d.User).WithMany(p => p.AspNetUserTokens).HasForeignKey(d => d.UserId);
+        });
+
+        modelBuilder.Entity<Boletim>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK_Analise");
+
+            entity.ToTable("Boletim");
+
+            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.DataInicio)
+                .HasDefaultValueSql("(getdate())", "DF_Analise_DataInicio")
+                .HasColumnType("datetime")
+                .HasColumnName("dataInicio");
+            entity.Property(e => e.DataTermino)
+                .HasColumnType("datetime")
+                .HasColumnName("dataTermino");
+            entity.Property(e => e.Descricao)
+                .IsUnicode(false)
+                .HasColumnName("descricao");
+            entity.Property(e => e.Finalizada).HasColumnName("finalizada");
+            entity.Property(e => e.IdMaterial).HasColumnName("idMaterial");
+            entity.Property(e => e.IdPais).HasColumnName("idPais");
+            entity.Property(e => e.Positivo).HasColumnName("positivo");
+
+            entity.HasOne(d => d.IdMaterialNavigation).WithMany(p => p.Boletims)
+                .HasForeignKey(d => d.IdMaterial)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_Boletim_Material");
+
+            entity.HasOne(d => d.IdPaisNavigation).WithMany(p => p.Boletims)
+                .HasForeignKey(d => d.IdPais)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_Boletim_Pais");
         });
 
         modelBuilder.Entity<Importacao>(entity =>

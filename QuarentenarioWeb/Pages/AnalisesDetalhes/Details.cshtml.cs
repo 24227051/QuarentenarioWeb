@@ -30,7 +30,7 @@ namespace QuarentenarioWeb.Pages.AnalisesDetalhes
 
             var analisedetalhe = await _context.AnaliseDetalhes
                 .Include(p => p.IdPatogenoNavigation)
-                .Include(p => p.IdAnaliseNavigation)
+                .Include(p => p.IdBoletimNavigation)
                 .FirstOrDefaultAsync(m => m.Id == id);
 
             if (analisedetalhe is not null)

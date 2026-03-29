@@ -10,7 +10,7 @@ public partial class AnaliseDetalhe
     public int Id { get; set; }
 
     [Display(Name = "Id Boletim")]
-    public int IdAnalise { get; set; }
+    public int IdBoletim { get; set; }
 
     [Display(Name = "Id Patogeno")]
     public int IdPatogeno { get; set; }
@@ -29,7 +29,7 @@ public partial class AnaliseDetalhe
 
     [ValidateNever]
     [Display(Name = "Boletim")]
-    public virtual Analise IdAnaliseNavigation { get; set; } = null!;
+    public virtual Boletim IdBoletimNavigation { get; set; } = null!;
 
     [ValidateNever]
     [Display(Name = "Patogeno")]

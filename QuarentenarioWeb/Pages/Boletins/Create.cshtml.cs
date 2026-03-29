@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using QuarentenarioWeb.Data;
 using QuarentenarioWeb.Models;
 
-namespace QuarentenarioWeb.Pages.Analises
+namespace QuarentenarioWeb.Pages.Boletins
 {
     public class CreateModel : PageModel
     {
@@ -32,7 +32,7 @@ namespace QuarentenarioWeb.Pages.Analises
         }
 
         [BindProperty]
-        public Analise Analise { get; set; } = default!;
+        public Boletim Boletim { get; set; } = default!;
 
         // For more information, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
@@ -45,14 +45,14 @@ namespace QuarentenarioWeb.Pages.Analises
 
             // Retorna o ICollection<Patogeno> IdPatogenos associados ao Material selecionado na analise
             IList<Patogeno> idPatogenos = _context.Materials
-                .Where(m => m.Id == Analise.IdMaterial)
+                .Where(m => m.Id == Boletim.IdMaterial)
                 .Select(m => m.IdPatogenos)
                 .FirstOrDefault()?.ToList() ?? new List<Patogeno>();
 
 
             ICollection<AnaliseDetalhe> analiseDetalhes = new List<AnaliseDetalhe>();
 
-            // Para cada Patogeno associado ao Material, cria um novo AnaliseDetalhe e adiciona à coleção de AnaliseDetalhes da Analise
+            // Para cada Patogeno associado ao Material, cria um novo AnaliseDetalhe e adiciona à coleção de AnaliseDetalhes da Boletim
             foreach (Patogeno patogeno in idPatogenos)
             {
                 AnaliseDetalhe analiseDetalhe = new AnaliseDetalhe
@@ -66,8 +66,8 @@ namespace QuarentenarioWeb.Pages.Analises
                 analiseDetalhes.Add(analiseDetalhe);
             }
 
-            Analise.AnaliseDetalhes = analiseDetalhes;
-            _context.Analises.Add(Analise);
+            Boletim.AnaliseDetalhes = analiseDetalhes;
+            _context.Boletims.Add(Boletim);
             await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");

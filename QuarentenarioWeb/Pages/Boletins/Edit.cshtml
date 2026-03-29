@@ -1,5 +1,5 @@
 ﻿@page
-@model QuarentenarioWeb.Pages.Analises.EditModel
+@model QuarentenarioWeb.Pages.Boletins.EditModel
 
 @{
     ViewData["Title"] = "Edit";
@@ -13,44 +13,44 @@
     <div class="col-md-4">
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Analise.Id" />
+            <input type="hidden" asp-for="Boletim.Id" />
             <div class="form-group">
-                <label asp-for="Analise.IdMaterial" class="control-label"></label>
-                <select asp-for="Analise.IdMaterial" class="form-control" asp-items="ViewBag.IdMaterial" >
+                <label asp-for="Boletim.IdMaterial" class="control-label"></label>
+                <select asp-for="Boletim.IdMaterial" class="form-control" asp-items="ViewBag.IdMaterial" >
                     <option value="">-- Selecione um Material --</option>
                 </select>
-                <span asp-validation-for="Analise.IdMaterial" class="text-danger"></span>
+                <span asp-validation-for="Boletim.IdMaterial" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Analise.IdPais" class="control-label"></label>
-                <select asp-for="Analise.IdPais" class="form-control" asp-items="ViewBag.IdPais">
+                <label asp-for="Boletim.IdPais" class="control-label"></label>
+                <select asp-for="Boletim.IdPais" class="form-control" asp-items="ViewBag.IdPais">
                     <option value="">-- Selecione um País --</option>
                 </select>
-                <span asp-validation-for="Analise.IdPais" class="text-danger"></span>
+                <span asp-validation-for="Boletim.IdPais" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Analise.Descricao" class="control-label"></label>
-                <input asp-for="Analise.Descricao" class="form-control" />
-                <span asp-validation-for="Analise.Descricao" class="text-danger"></span>
+                <label asp-for="Boletim.Descricao" class="control-label"></label>
+                <input asp-for="Boletim.Descricao" class="form-control" />
+                <span asp-validation-for="Boletim.Descricao" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Analise.DataInicio" class="control-label"></label>
-                <input asp-for="Analise.DataInicio" class="form-control" />
-                <span asp-validation-for="Analise.DataInicio" class="text-danger"></span>
+                <label asp-for="Boletim.DataInicio" class="control-label"></label>
+                <input asp-for="Boletim.DataInicio" class="form-control" />
+                <span asp-validation-for="Boletim.DataInicio" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Analise.DataTermino" class="control-label"></label>
-                <input asp-for="Analise.DataTermino" class="form-control" />
-                <span asp-validation-for="Analise.DataTermino" class="text-danger"></span>
+                <label asp-for="Boletim.DataTermino" class="control-label"></label>
+                <input asp-for="Boletim.DataTermino" class="form-control" />
+                <span asp-validation-for="Boletim.DataTermino" class="text-danger"></span>
             </div>
             <div class="form-group form-check">
                 <label class="form-check-label">
-                    <input class="form-check-input" asp-for="Analise.Finalizada" /> @Html.DisplayNameFor(model => model.Analise.Finalizada)
+                    <input class="form-check-input" asp-for="Boletim.Finalizada" /> @Html.DisplayNameFor(model => model.Boletim.Finalizada)
                 </label>
             </div>
             <div class="form-group form-check">
                 <label class="form-check-label">
-                    <input class="form-check-input" asp-for="Analise.Positivo" /> @Html.DisplayNameFor(model => model.Analise.Positivo)
+                    <input class="form-check-input" asp-for="Boletim.Positivo" /> @Html.DisplayNameFor(model => model.Boletim.Positivo)
                 </label>
             </div>
             <div class="form-group">

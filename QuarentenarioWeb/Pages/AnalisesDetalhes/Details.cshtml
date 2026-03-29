@@ -42,10 +42,10 @@
             @Html.DisplayFor(model => model.AnaliseDetalhe.Positivo)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.AnaliseDetalhe.IdAnaliseNavigation)
+            @Html.DisplayNameFor(model => model.AnaliseDetalhe.IdBoletimNavigation)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.AnaliseDetalhe.IdAnaliseNavigation.Descricao)
+            @Html.DisplayFor(model => model.AnaliseDetalhe.IdBoletimNavigation.Descricao)
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.AnaliseDetalhe.IdPatogenoNavigation)
@@ -57,5 +57,5 @@
 </div>
 <div>
     <a asp-page="./Edit" asp-route-id="@Model.AnaliseDetalhe.Id">Editar</a> |
-    <a asp-page="./Index" asp-route-id="@Model.AnaliseDetalhe.IdAnalise">Voltar à lista</a>
+    <a asp-page="./Index" asp-route-id="@Model.AnaliseDetalhe.IdBoletim">Voltar à lista</a>
 </div>

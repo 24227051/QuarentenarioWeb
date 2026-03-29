@@ -31,7 +31,7 @@ namespace QuarentenarioWeb.Pages.AnalisesDetalhes
 
             var analisedetalhe = await _context.AnaliseDetalhes
                 .Include(p => p.IdPatogenoNavigation)
-                .Include(p => p.IdAnaliseNavigation)
+                .Include(p => p.IdBoletimNavigation)
                 .FirstOrDefaultAsync(m => m.Id == id);
 
             if (analisedetalhe is not null)
@@ -53,7 +53,7 @@ namespace QuarentenarioWeb.Pages.AnalisesDetalhes
 
             var analisedetalhe = await _context.AnaliseDetalhes
                 .Include(p => p.IdPatogenoNavigation)
-                .Include(p => p.IdAnaliseNavigation)
+                .Include(p => p.IdBoletimNavigation)
                 .FirstOrDefaultAsync(m => m.Id == id);
 
             if (analisedetalhe != null)
@@ -73,7 +73,7 @@ namespace QuarentenarioWeb.Pages.AnalisesDetalhes
                 }
             }
 
-            return RedirectToPage("./Index", new { id = AnaliseDetalhe.IdAnalise });
+            return RedirectToPage("./Index", new { id = AnaliseDetalhe.IdBoletim });
         }
     }
 }

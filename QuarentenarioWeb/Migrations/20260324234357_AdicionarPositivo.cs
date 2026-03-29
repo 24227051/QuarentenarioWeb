@@ -10,10 +10,10 @@ namespace QuarentenarioWeb.Migrations
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            // adicionar a coluna "positivo" do tipo booleano à tabela "Analise", com valor padrão "false"
+            // adicionar a coluna "positivo" do tipo booleano à tabela "Boletim", com valor padrão "false"
             migrationBuilder.AddColumn<bool>(
                 name: "Positivo",
-                table: "Analise",
+                table: "Boletim",
                 type: "bit",
                 nullable: false,
                 defaultValue: false);
@@ -30,10 +30,10 @@ namespace QuarentenarioWeb.Migrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            // excluir a coluna "positivo" do tipo booleano à tabela "Analise"
+            // excluir a coluna "positivo" do tipo booleano à tabela "Boletim"
             migrationBuilder.DropColumn(
                 name: "Positivo",
-                table: "Analise");
+                table: "Boletim");
 
             // excluir a coluna "positivo" do tipo booleano à tabela "AnaliseDetalhe"
             migrationBuilder.DropColumn(

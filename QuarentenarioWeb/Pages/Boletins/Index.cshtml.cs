@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using QuarentenarioWeb.Data;
 using QuarentenarioWeb.Models;
 
-namespace QuarentenarioWeb.Pages.Analises
+namespace QuarentenarioWeb.Pages.Boletins
 {
     public class IndexModel : PageModel
     {
@@ -19,11 +19,11 @@ namespace QuarentenarioWeb.Pages.Analises
             _context = context;
         }
 
-        public IList<Analise> Analise { get;set; } = default!;
+        public IList<Boletim> Boletim { get;set; } = default!;
 
         public async Task OnGetAsync()
         {
-            Analise = await _context.Analises
+            Boletim = await _context.Boletims
                 .Include(a => a.IdPaisNavigation)
                 .Include(a => a.IdMaterialNavigation).ToListAsync();
         }

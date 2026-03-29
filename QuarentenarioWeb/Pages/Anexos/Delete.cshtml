@@ -37,16 +37,16 @@
             @Html.DisplayFor(model => model.Anexo.IdAnaliseDetalheNavigation.Descricao)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Anexo.IdAnaliseNavigation)
+            @Html.DisplayNameFor(model => model.Anexo.IdBoletimNavigation)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Anexo.IdAnaliseNavigation.Descricao)
+            @Html.DisplayFor(model => model.Anexo.IdBoletimNavigation.Descricao)
         </dd>
     </dl>
     
     <form method="post">
         <input type="hidden" asp-for="Anexo.Id" />
         <input type="submit" value="Excluir" class="btn btn-danger" /> |
-        <a asp-page="./Index" asp-route-idAnalise="@Model.IdAnalise" asp-route-idAnaliseDetalhe="@Model.IdAnaliseDetalhe">Voltar à lista</a>
+        <a asp-page="./Index" asp-route-idBoletim="@Model.IdBoletim" asp-route-idAnaliseDetalhe="@Model.IdAnaliseDetalhe">Voltar à lista</a>
     </form>
 </div>

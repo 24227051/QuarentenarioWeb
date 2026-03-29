@@ -1,5 +1,5 @@
 ﻿@page
-@model QuarentenarioWeb.Pages.Analises.IndexModel
+@model QuarentenarioWeb.Pages.Boletins.IndexModel
 
 @{
     ViewData["Title"] = "Index";
@@ -14,31 +14,31 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Analise[0].Descricao)
+                @Html.DisplayNameFor(model => model.Boletim[0].Descricao)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Analise[0].DataInicio)
+                @Html.DisplayNameFor(model => model.Boletim[0].DataInicio)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Analise[0].DataTermino)
+                @Html.DisplayNameFor(model => model.Boletim[0].DataTermino)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Analise[0].Finalizada)
+                @Html.DisplayNameFor(model => model.Boletim[0].Finalizada)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Analise[0].Positivo)
+                @Html.DisplayNameFor(model => model.Boletim[0].Positivo)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Analise[0].IdPaisNavigation)
+                @Html.DisplayNameFor(model => model.Boletim[0].IdPaisNavigation)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Analise[0].IdMaterialNavigation)
+                @Html.DisplayNameFor(model => model.Boletim[0].IdMaterialNavigation)
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.Analise) {
+@foreach (var item in Model.Boletim) {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Descricao)
@@ -66,7 +66,7 @@
                 <a asp-page="./Details" asp-route-id="@item.Id">Detalhes</a> |
                 <a asp-page="./Delete" asp-route-id="@item.Id">Excluir</a> |
                 <a asp-page="../AnalisesDetalhes/Index" asp-route-id="@item.Id">Análises</a> |
-                <a asp-page="../Anexos/Index" asp-route-idAnalise="@item.Id">Anexos</a>
+                <a asp-page="../Anexos/Index" asp-route-idBoletim="@item.Id">Anexos</a>
         </tr>
 }
     </tbody>

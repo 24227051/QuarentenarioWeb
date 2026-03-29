@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using QuarentenarioWeb.Data;
 using QuarentenarioWeb.Models;
 
-namespace QuarentenarioWeb.Pages.Analises
+namespace QuarentenarioWeb.Pages.Boletins
 {
     public class EditModel : PageModel
     {
@@ -21,7 +21,7 @@ namespace QuarentenarioWeb.Pages.Analises
         }
 
         [BindProperty]
-        public Analise Analise { get; set; } = default!;
+        public Boletim Boletim { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -30,12 +30,12 @@ namespace QuarentenarioWeb.Pages.Analises
                 return NotFound();
             }
 
-            var analise = await _context.Analises.FirstOrDefaultAsync(m => m.Id == id);
+            var analise = await _context.Boletims.FirstOrDefaultAsync(m => m.Id == id);
             if (analise == null)
             {
                 return NotFound();
             }
-            Analise = analise;
+            Boletim = analise;
             PopularControles();
             return Page();
         }
@@ -56,7 +56,7 @@ namespace QuarentenarioWeb.Pages.Analises
                 return Page();
             }
 
-            _context.Attach(Analise).State = EntityState.Modified;
+            _context.Attach(Boletim).State = EntityState.Modified;
 
             try
             {
@@ -64,7 +64,7 @@ namespace QuarentenarioWeb.Pages.Analises
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!AnaliseExists(Analise.Id))
+                if (!AnaliseExists(Boletim.Id))
                 {
                     return NotFound();
                 }
@@ -79,7 +79,7 @@ namespace QuarentenarioWeb.Pages.Analises
 
         private bool AnaliseExists(int id)
         {
-            return _context.Analises.Any(e => e.Id == id);
+            return _context.Boletims.Any(e => e.Id == id);
         }
     }
 }

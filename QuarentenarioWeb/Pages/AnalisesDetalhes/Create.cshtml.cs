@@ -32,7 +32,7 @@ namespace QuarentenarioWeb.Pages.AnalisesDetalhes
             }
 
             // Load the analysis to get the associated material
-            var analise = await _context.Analises
+            var analise = await _context.Boletims
                 .Include(a => a.IdMaterialNavigation)
                 .FirstOrDefaultAsync(a => a.Id == id.Value);
 
@@ -44,7 +44,7 @@ namespace QuarentenarioWeb.Pages.AnalisesDetalhes
             AnaliseDescricao = analise.Descricao;
 
             // Initialize the bound model so the hidden field has the analysis id
-            AnaliseDetalhe = new AnaliseDetalhe { IdAnalise = analise.Id };
+            AnaliseDetalhe = new AnaliseDetalhe { IdBoletim = analise.Id };
 
             // Populate patogeno select list filtered by material associated to this analysis
             var materialId = analise.IdMaterial;
@@ -78,7 +78,7 @@ namespace QuarentenarioWeb.Pages.AnalisesDetalhes
             _context.AnaliseDetalhes.Add(AnaliseDetalhe);
             await _context.SaveChangesAsync();
 
-            return RedirectToPage("./Index", new { id = AnaliseDetalhe.IdAnalise });
+            return RedirectToPage("./Index", new { id = AnaliseDetalhe.IdBoletim });
         }
     }
 }

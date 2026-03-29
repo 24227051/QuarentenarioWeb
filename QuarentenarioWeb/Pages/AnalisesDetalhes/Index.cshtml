@@ -8,7 +8,7 @@
 <h1>Análises</h1>
 
 <p>
-    <a asp-page="./Create" asp-route-id="@Model.IdAnalise">Criar Novo</a>
+    <a asp-page="./Create" asp-route-id="@Model.IdBoletim">Criar Novo</a>
 </p>
 <table class="table">
     <thead>
@@ -29,10 +29,10 @@
                 @Html.DisplayNameFor(model => model.AnaliseDetalhe[0].Positivo)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.AnaliseDetalhe[0].IdAnaliseNavigation)
+                @Html.DisplayNameFor(model => model.AnaliseDetalhe[0].IdBoletimNavigation)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.AnaliseDetalhe[0].IdAnaliseNavigation.IdMaterialNavigation)
+                @Html.DisplayNameFor(model => model.AnaliseDetalhe[0].IdBoletimNavigation.IdMaterialNavigation)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.AnaliseDetalhe[0].IdPatogenoNavigation)
@@ -59,10 +59,10 @@
                 @Html.DisplayFor(modelItem => item.Positivo)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.IdAnaliseNavigation.Descricao)
+                @Html.DisplayFor(modelItem => item.IdBoletimNavigation.Descricao)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.IdAnaliseNavigation.IdMaterialNavigation.Nome)
+                @Html.DisplayFor(modelItem => item.IdBoletimNavigation.IdMaterialNavigation.Nome)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.IdPatogenoNavigation.Nome)
@@ -71,7 +71,7 @@
                 <a asp-page="./Edit" asp-route-id="@item.Id">Editar</a> |
                 <a asp-page="./Details" asp-route-id="@item.Id">Detalhes</a> |
                 <a asp-page="./Delete" asp-route-id="@item.Id">Excluir</a> |
-                <a asp-page="../Anexos/Index" asp-route-idAnaliseDetalhe="@item.Id" asp-route-idAnalise="@item.IdAnalise">Anexos</a>
+                <a asp-page="../Anexos/Index" asp-route-idAnaliseDetalhe="@item.Id" asp-route-idBoletim="@item.IdBoletim">Anexos</a>
             </td>
         </tr>
 }

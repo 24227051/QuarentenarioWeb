@@ -22,28 +22,28 @@ namespace QuarentenarioWeb.Pages.Anexos
         public IList<Anexo> Anexo { get;set; } = default!;
 
         [BindProperty]
-        public int? IdAnalise { get; set; }
+        public int? IdBoletim { get; set; }
 
         [BindProperty]
         public int? IdAnaliseDetalhe { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(int? idAnalise, int? idAnaliseDetalhe)
+        public async Task<IActionResult> OnGetAsync(int? idBoletim, int? idAnaliseDetalhe)
         {
-            if (idAnalise == null  && idAnaliseDetalhe == null)
+            if (idBoletim == null  && idAnaliseDetalhe == null)
             {
                 return NotFound();
             }
 
-            IdAnalise = idAnalise;
+            IdBoletim = idBoletim;
             IdAnaliseDetalhe = idAnaliseDetalhe;
 
             // Filtra os anexos com base no ID da análise ou no ID do detalhe da análise, se fornecidos
-            if (IdAnalise != null)
+            if (IdBoletim != null)
             {
                 Anexo = await _context.Anexos
                                 .Include(a => a.IdAnaliseDetalheNavigation)
-                                .Include(a => a.IdAnaliseNavigation)
-                                .Where(a => a.IdAnalise == IdAnalise)
+                                .Include(a => a.IdBoletimNavigation)
+                                .Where(a => a.IdBoletim == IdBoletim)
                                 .ToListAsync();
             }
 
@@ -51,7 +51,7 @@ namespace QuarentenarioWeb.Pages.Anexos
             {
                 Anexo = await _context.Anexos
                                 .Include(a => a.IdAnaliseDetalheNavigation)
-                                .Include(a => a.IdAnaliseNavigation)
+                                .Include(a => a.IdBoletimNavigation)
                                 .Where(a => a.IdAnaliseDetalhe == IdAnaliseDetalhe)
                                 .ToListAsync();
             }

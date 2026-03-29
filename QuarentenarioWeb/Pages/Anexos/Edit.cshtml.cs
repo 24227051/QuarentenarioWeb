@@ -32,7 +32,7 @@ namespace QuarentenarioWeb.Pages.Anexos
         public IFormFile? Upload { get; set; }
 
         [BindProperty]
-        public int? IdAnalise { get; set; }
+        public int? IdBoletim { get; set; }
 
         [BindProperty]
         public int? IdAnaliseDetalhe { get; set; }
@@ -45,7 +45,7 @@ namespace QuarentenarioWeb.Pages.Anexos
             }
 
             var anexo = await _context.Anexos
-                .Include(p => p.IdAnaliseNavigation)
+                .Include(p => p.IdBoletimNavigation)
                 .Include(p => p.IdAnaliseDetalheNavigation)
                 .FirstOrDefaultAsync(m => m.Id == id);
 
@@ -54,15 +54,15 @@ namespace QuarentenarioWeb.Pages.Anexos
                 return NotFound();
             }
 
-            IdAnalise = anexo.IdAnalise;
+            IdBoletim = anexo.IdBoletim;
             IdAnaliseDetalhe = anexo.IdAnaliseDetalhe;
 
             Anexo = anexo;
             PopularControles();
 
-            if (IdAnalise == null)
+            if (IdBoletim == null)
             {
-                IdAnalise = Anexo.IdAnaliseDetalheNavigation!.IdAnalise;
+                IdBoletim = Anexo.IdAnaliseDetalheNavigation!.IdBoletim;
             }
 
             return Page();
@@ -71,7 +71,7 @@ namespace QuarentenarioWeb.Pages.Anexos
         private void PopularControles()
         {
             ViewData["IdAnaliseDetalhe"] = new SelectList(_context.AnaliseDetalhes, "Id", "Descricao");
-            ViewData["IdAnalise"] = new SelectList(_context.Analises, "Id", "Descricao");
+            ViewData["IdBoletim"] = new SelectList(_context.Boletims, "Id", "Descricao");
         }
 
         // To protect from overposting attacks, enable the specific properties you want to bind to.
@@ -89,7 +89,7 @@ namespace QuarentenarioWeb.Pages.Anexos
             }
 
             var existing = await _context.Anexos.AsNoTracking()
-                .Include(p => p.IdAnaliseNavigation)
+                .Include(p => p.IdBoletimNavigation)
                 .Include(p => p.IdAnaliseDetalheNavigation)
                 .FirstOrDefaultAsync(a => a.Id == Anexo.Id);
 
@@ -158,12 +158,12 @@ namespace QuarentenarioWeb.Pages.Anexos
                 return Page();
             }
 
-            if (Anexo.IdAnalise == null)
+            if (Anexo.IdBoletim == null)
             {
-                Anexo.IdAnalise = existing.IdAnaliseDetalheNavigation!.IdAnalise;
+                Anexo.IdBoletim = existing.IdAnaliseDetalheNavigation!.IdBoletim;
             }
 
-            return RedirectToPage("./Index", new { idAnalise = Anexo.IdAnalise, idAnaliseDetalhe = Anexo.IdAnaliseDetalhe });
+            return RedirectToPage("./Index", new { idBoletim = Anexo.IdBoletim, idAnaliseDetalhe = Anexo.IdAnaliseDetalhe });
         }
 
         private bool AnexoExists(int id)

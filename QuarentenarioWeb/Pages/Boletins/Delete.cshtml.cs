@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using QuarentenarioWeb.Data;
 using QuarentenarioWeb.Models;
 
-namespace QuarentenarioWeb.Pages.Analises
+namespace QuarentenarioWeb.Pages.Boletins
 {
     public class DeleteModel : PageModel
     {
@@ -21,7 +21,7 @@ namespace QuarentenarioWeb.Pages.Analises
         }
 
         [BindProperty]
-        public Analise Analise { get; set; } = default!;
+        public Boletim Boletim { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -30,14 +30,14 @@ namespace QuarentenarioWeb.Pages.Analises
                 return NotFound();
             }
 
-            var analise = await _context.Analises
+            var analise = await _context.Boletims
                 .Include(p => p.IdPaisNavigation)
                 .Include(p => p.IdMaterialNavigation)
                 .FirstOrDefaultAsync(m => m.Id == id);
 
             if (analise is not null)
             {
-                Analise = analise;
+                Boletim = analise;
 
                 return Page();
             }
@@ -52,15 +52,15 @@ namespace QuarentenarioWeb.Pages.Analises
                 return NotFound();
             }
 
-            var analise = await _context.Analises
+            var analise = await _context.Boletims
                 .Include(p => p.IdPaisNavigation)
                 .Include(p => p.IdMaterialNavigation)
                 .FirstOrDefaultAsync(m => m.Id == id);
 
             if (analise != null)
             {
-                Analise = analise;
-                _context.Analises.Remove(Analise);
+                Boletim = analise;
+                _context.Boletims.Remove(Boletim);
 
                 try
                 {
@@ -68,10 +68,10 @@ namespace QuarentenarioWeb.Pages.Analises
                 }
                 catch (DbUpdateException ex)
                 {
-                    ModelState.Remove($"{nameof(Analise)}.{nameof(Analise.Descricao)}");
+                    ModelState.Remove($"{nameof(Boletim)}.{nameof(Boletim.Descricao)}");
                     // Fornece feedback simples na página caso algo falhe
                     ModelState.AddModelError(string.Empty, "Não foi possível excluir a análise: " + (ex.InnerException?.Message ?? ex.Message));
-                    Analise = analise;
+                    Boletim = analise;
                     return Page();
                 }
             }

@@ -39,7 +39,7 @@ namespace QuarentenarioWeb.Migrations.Quarentenario
                     b.ToTable("MaterialPatogeno", (string)null);
                 });
 
-            modelBuilder.Entity("QuarentenarioWeb.Models.Analise", b =>
+            modelBuilder.Entity("QuarentenarioWeb.Models.Boletim", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -82,7 +82,7 @@ namespace QuarentenarioWeb.Migrations.Quarentenario
 
                     b.HasIndex("IdMaterial");
 
-                    b.ToTable("Analise", (string)null);
+                    b.ToTable("Boletim", (string)null);
                 });
 
             modelBuilder.Entity("QuarentenarioWeb.Models.AnaliseDetalhe", b =>
@@ -114,7 +114,7 @@ namespace QuarentenarioWeb.Migrations.Quarentenario
                         .HasColumnType("bit")
                         .HasColumnName("finalizada");
 
-                    b.Property<int>("IdAnalise")
+                    b.Property<int>("IdBoletim")
                         .HasColumnType("int")
                         .HasColumnName("idAnalise");
 
@@ -124,7 +124,7 @@ namespace QuarentenarioWeb.Migrations.Quarentenario
 
                     b.HasKey("Id");
 
-                    b.HasIndex("IdAnalise");
+                    b.HasIndex("IdBoletim");
 
                     b.HasIndex("IdPatogeno");
 
@@ -140,7 +140,7 @@ namespace QuarentenarioWeb.Migrations.Quarentenario
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("IdAnalise")
+                    b.Property<int?>("IdBoletim")
                         .HasColumnType("int")
                         .HasColumnName("idAnalise");
 
@@ -171,7 +171,7 @@ namespace QuarentenarioWeb.Migrations.Quarentenario
 
                     b.HasKey("Id");
 
-                    b.HasIndex("IdAnalise");
+                    b.HasIndex("IdBoletim");
 
                     b.HasIndex("IdAnaliseDetalhe");
 
@@ -339,16 +339,16 @@ namespace QuarentenarioWeb.Migrations.Quarentenario
                         .HasConstraintName("FK_MaterialPatogeno_Patogeno");
                 });
 
-            modelBuilder.Entity("QuarentenarioWeb.Models.Analise", b =>
+            modelBuilder.Entity("QuarentenarioWeb.Models.Boletim", b =>
                 {
                     b.HasOne("QuarentenarioWeb.Models.Pais", "IdClienteNavigation")
-                        .WithMany("Analises")
+                        .WithMany("Boletins")
                         .HasForeignKey("IdCliente")
                         .IsRequired()
                         .HasConstraintName("FK_Analise_Cliente");
 
                     b.HasOne("QuarentenarioWeb.Models.Material", "IdMaterialNavigation")
-                        .WithMany("Analises")
+                        .WithMany("Boletins")
                         .HasForeignKey("IdMaterial")
                         .IsRequired()
                         .HasConstraintName("FK_Analise_Material");
@@ -360,9 +360,9 @@ namespace QuarentenarioWeb.Migrations.Quarentenario
 
             modelBuilder.Entity("QuarentenarioWeb.Models.AnaliseDetalhe", b =>
                 {
-                    b.HasOne("QuarentenarioWeb.Models.Analise", "IdAnaliseNavigation")
+                    b.HasOne("QuarentenarioWeb.Models.Boletim", "IdAnaliseNavigation")
                         .WithMany("AnaliseDetalhes")
-                        .HasForeignKey("IdAnalise")
+                        .HasForeignKey("IdBoletim")
                         .IsRequired()
                         .HasConstraintName("FK_AnaliseDetalhe_Analise");
 
@@ -379,9 +379,9 @@ namespace QuarentenarioWeb.Migrations.Quarentenario
 
             modelBuilder.Entity("QuarentenarioWeb.Models.Anexo", b =>
                 {
-                    b.HasOne("QuarentenarioWeb.Models.Analise", "IdAnaliseNavigation")
+                    b.HasOne("QuarentenarioWeb.Models.Boletim", "IdAnaliseNavigation")
                         .WithMany("Anexos")
-                        .HasForeignKey("IdAnalise")
+                        .HasForeignKey("IdBoletim")
                         .HasConstraintName("FK_Anexo_Analise");
 
                     b.HasOne("QuarentenarioWeb.Models.AnaliseDetalhe", "IdAnaliseDetalheNavigation")
@@ -413,7 +413,7 @@ namespace QuarentenarioWeb.Migrations.Quarentenario
                     b.Navigation("IdTipoPatogenoNavigation");
                 });
 
-            modelBuilder.Entity("QuarentenarioWeb.Models.Analise", b =>
+            modelBuilder.Entity("QuarentenarioWeb.Models.Boletim", b =>
                 {
                     b.Navigation("AnaliseDetalhes");
 
@@ -427,12 +427,12 @@ namespace QuarentenarioWeb.Migrations.Quarentenario
 
             modelBuilder.Entity("QuarentenarioWeb.Models.Pais", b =>
                 {
-                    b.Navigation("Analises");
+                    b.Navigation("Boletins");
                 });
 
             modelBuilder.Entity("QuarentenarioWeb.Models.Material", b =>
                 {
-                    b.Navigation("Analises");
+                    b.Navigation("Boletins");
                 });
 
             modelBuilder.Entity("QuarentenarioWeb.Models.Patogeno", b =>
