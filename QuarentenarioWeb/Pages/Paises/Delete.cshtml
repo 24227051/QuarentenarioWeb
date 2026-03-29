@@ -1,5 +1,5 @@
 ﻿@page
-@model QuarentenarioWeb.Pages.Clientes.DeleteModel
+@model QuarentenarioWeb.Pages.Paises.DeleteModel
 
 @{
     ViewData["Title"] = "Delete";
@@ -13,16 +13,16 @@
     <hr />
     <dl class="row">
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Cliente.Nome)
+            @Html.DisplayNameFor(model => model.Pais.Nome)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Cliente.Nome)
+            @Html.DisplayFor(model => model.Pais.Nome)
         </dd>
     </dl>
     
     <form method="post">
         <div asp-validation-summary="All" class="text-danger"></div>
-        <input type="hidden" asp-for="Cliente.Id" />
+        <input type="hidden" asp-for="Pais.Id" />
         <input type="submit" value="Excluir" class="btn btn-danger" /> |
         <a asp-page="./Index">Voltar à lista</a>
     </form>

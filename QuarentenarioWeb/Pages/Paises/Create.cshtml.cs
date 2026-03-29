@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using QuarentenarioWeb.Data;
 using QuarentenarioWeb.Models;
 
-namespace QuarentenarioWeb.Pages.Clientes
+namespace QuarentenarioWeb.Pages.Paises
 {
     public class CreateModel : PageModel
     {
@@ -25,7 +25,7 @@ namespace QuarentenarioWeb.Pages.Clientes
         }
 
         [BindProperty]
-        public Cliente Cliente { get; set; } = default!;
+        public Pai Pais { get; set; } = default!;
 
         // For more information, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
@@ -35,7 +35,7 @@ namespace QuarentenarioWeb.Pages.Clientes
                 return Page();
             }
 
-            _context.Clientes.Add(Cliente);
+            _context.Pais.Add(Pais);
             await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");

@@ -27,7 +27,7 @@ namespace QuarentenarioWeb.Pages.Analises
 
         private void PopularControles()
         {
-            ViewData["IdCliente"] = new SelectList(_context.Clientes, "Id", "Nome");
+            ViewData["IdPais"] = new SelectList(_context.Pais, "Id", "Nome");
             ViewData["IdMaterial"] = new SelectList(_context.Materials, "Id", "Nome");
         }
 

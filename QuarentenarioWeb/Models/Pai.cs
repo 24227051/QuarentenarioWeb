@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace QuarentenarioWeb.Models;
 
-public partial class Cliente
+public partial class Pai
 {
     public int Id { get; set; }
 

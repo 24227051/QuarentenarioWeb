@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using QuarentenarioWeb.Data;
 using QuarentenarioWeb.Models;
 
-namespace QuarentenarioWeb.Pages.Clientes
+namespace QuarentenarioWeb.Pages.Paises
 {
     public class DeleteModel : PageModel
     {
@@ -20,7 +20,7 @@ namespace QuarentenarioWeb.Pages.Clientes
         }
 
         [BindProperty]
-        public Cliente Cliente { get; set; } = default!;
+        public Pai Pais { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -29,11 +29,11 @@ namespace QuarentenarioWeb.Pages.Clientes
                 return NotFound();
             }
 
-            var cliente = await _context.Clientes.FirstOrDefaultAsync(m => m.Id == id);
+            var pais = await _context.Pais.FirstOrDefaultAsync(m => m.Id == id);
 
-            if (cliente is not null)
+            if (pais is not null)
             {
-                Cliente = cliente;
+                Pais = pais;
 
                 return Page();
             }
@@ -48,20 +48,20 @@ namespace QuarentenarioWeb.Pages.Clientes
                 return NotFound();
             }
 
-            var cliente = await _context.Clientes.FindAsync(id);
-            if (cliente != null)
+            var pais = await _context.Pais.FindAsync(id);
+            if (pais != null)
             {
-                Cliente = cliente;
-                _context.Clientes.Remove(Cliente);
+                Pais = pais;
+                _context.Pais.Remove(Pais);
                 try
                 {
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateException ex)
                 {
-                    ModelState.Remove($"{nameof(Cliente)}.{nameof(Cliente.Nome)}");
+                    ModelState.Remove($"{nameof(Pais)}.{nameof(Pais.Nome)}");
                     // Log the exception (ex) as needed
-                    ModelState.AddModelError(string.Empty, "Não foi possível excluir o cliente. Ele pode estar associado a outras entidades.");
+                    ModelState.AddModelError(string.Empty, "Não foi possível excluir o pais. Ele pode estar associado a outras entidades.");
                     return Page();
                 }
             }

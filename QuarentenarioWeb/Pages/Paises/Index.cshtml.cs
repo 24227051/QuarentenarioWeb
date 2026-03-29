@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using QuarentenarioWeb.Data;
 using QuarentenarioWeb.Models;
 
-namespace QuarentenarioWeb.Pages.Clientes
+namespace QuarentenarioWeb.Pages.Paises
 {
     public class IndexModel : PageModel
     {
@@ -19,11 +19,11 @@ namespace QuarentenarioWeb.Pages.Clientes
             _context = context;
         }
 
-        public IList<Cliente> Cliente { get;set; } = default!;
+        public IList<Pai> Pais { get;set; } = default!;
 
         public async Task OnGetAsync()
         {
-            Cliente = await _context.Clientes.ToListAsync();
+            Pais = await _context.Pais.ToListAsync();
         }
     }
 }

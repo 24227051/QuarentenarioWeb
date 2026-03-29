@@ -22,11 +22,23 @@ public partial class QuarentenarioContext : DbContext
 
     public virtual DbSet<Anexo> Anexos { get; set; }
 
-    public virtual DbSet<Cliente> Clientes { get; set; }
+    public virtual DbSet<AspNetRole> AspNetRoles { get; set; }
+
+    public virtual DbSet<AspNetRoleClaim> AspNetRoleClaims { get; set; }
+
+    public virtual DbSet<AspNetUser> AspNetUsers { get; set; }
+
+    public virtual DbSet<AspNetUserClaim> AspNetUserClaims { get; set; }
+
+    public virtual DbSet<AspNetUserLogin> AspNetUserLogins { get; set; }
+
+    public virtual DbSet<AspNetUserToken> AspNetUserTokens { get; set; }
 
     public virtual DbSet<Importacao> Importacaos { get; set; }
 
     public virtual DbSet<Material> Materials { get; set; }
+
+    public virtual DbSet<Pai> Pais { get; set; }
 
     public virtual DbSet<Patogeno> Patogenos { get; set; }
 
@@ -55,19 +67,19 @@ public partial class QuarentenarioContext : DbContext
                 .IsUnicode(false)
                 .HasColumnName("descricao");
             entity.Property(e => e.Finalizada).HasColumnName("finalizada");
-            entity.Property(e => e.Positivo).HasColumnName("Positivo");
-            entity.Property(e => e.IdCliente).HasColumnName("idCliente");
             entity.Property(e => e.IdMaterial).HasColumnName("idMaterial");
-
-            entity.HasOne(d => d.IdClienteNavigation).WithMany(p => p.Analises)
-                .HasForeignKey(d => d.IdCliente)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Analise_Cliente");
+            entity.Property(e => e.IdPais).HasColumnName("idPais");
+            entity.Property(e => e.Positivo).HasColumnName("positivo");
 
             entity.HasOne(d => d.IdMaterialNavigation).WithMany(p => p.Analises)
                 .HasForeignKey(d => d.IdMaterial)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Analise_Material");
+
+            entity.HasOne(d => d.IdPaisNavigation).WithMany(p => p.Analises)
+                .HasForeignKey(d => d.IdPais)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_Analise_Pais");
         });
 
         modelBuilder.Entity<AnaliseDetalhe>(entity =>
@@ -86,9 +98,9 @@ public partial class QuarentenarioContext : DbContext
                 .IsUnicode(false)
                 .HasColumnName("descricao");
             entity.Property(e => e.Finalizada).HasColumnName("finalizada");
-            entity.Property(e => e.Positivo).HasColumnName("Positivo");
             entity.Property(e => e.IdAnalise).HasColumnName("idAnalise");
             entity.Property(e => e.IdPatogeno).HasColumnName("idPatogeno");
+            entity.Property(e => e.Positivo).HasColumnName("positivo");
 
             entity.HasOne(d => d.IdAnaliseNavigation).WithMany(p => p.AnaliseDetalhes)
                 .HasForeignKey(d => d.IdAnalise)
@@ -130,15 +142,76 @@ public partial class QuarentenarioContext : DbContext
                 .HasConstraintName("FK_Anexo_AnaliseDetalhe");
         });
 
-        modelBuilder.Entity<Cliente>(entity =>
+        modelBuilder.Entity<AspNetRole>(entity =>
         {
-            entity.ToTable("Cliente");
+            entity.HasIndex(e => e.NormalizedName, "RoleNameIndex")
+                .IsUnique()
+                .HasFilter("([NormalizedName] IS NOT NULL)");
 
-            entity.Property(e => e.Id).HasColumnName("id");
-            entity.Property(e => e.Nome)
-                .HasMaxLength(100)
-                .IsUnicode(false)
-                .HasColumnName("nome");
+            entity.Property(e => e.Name).HasMaxLength(256);
+            entity.Property(e => e.NormalizedName).HasMaxLength(256);
+        });
+
+        modelBuilder.Entity<AspNetRoleClaim>(entity =>
+        {
+            entity.HasIndex(e => e.RoleId, "IX_AspNetRoleClaims_RoleId");
+
+            entity.HasOne(d => d.Role).WithMany(p => p.AspNetRoleClaims).HasForeignKey(d => d.RoleId);
+        });
+
+        modelBuilder.Entity<AspNetUser>(entity =>
+        {
+            entity.HasIndex(e => e.NormalizedEmail, "EmailIndex");
+
+            entity.HasIndex(e => e.NormalizedUserName, "UserNameIndex")
+                .IsUnique()
+                .HasFilter("([NormalizedUserName] IS NOT NULL)");
+
+            entity.Property(e => e.Email).HasMaxLength(256);
+            entity.Property(e => e.NormalizedEmail).HasMaxLength(256);
+            entity.Property(e => e.NormalizedUserName).HasMaxLength(256);
+            entity.Property(e => e.UserName).HasMaxLength(256);
+
+            entity.HasMany(d => d.Roles).WithMany(p => p.Users)
+                .UsingEntity<Dictionary<string, object>>(
+                    "AspNetUserRole",
+                    r => r.HasOne<AspNetRole>().WithMany().HasForeignKey("RoleId"),
+                    l => l.HasOne<AspNetUser>().WithMany().HasForeignKey("UserId"),
+                    j =>
+                    {
+                        j.HasKey("UserId", "RoleId");
+                        j.ToTable("AspNetUserRoles");
+                        j.HasIndex(new[] { "RoleId" }, "IX_AspNetUserRoles_RoleId");
+                    });
+        });
+
+        modelBuilder.Entity<AspNetUserClaim>(entity =>
+        {
+            entity.HasIndex(e => e.UserId, "IX_AspNetUserClaims_UserId");
+
+            entity.HasOne(d => d.User).WithMany(p => p.AspNetUserClaims).HasForeignKey(d => d.UserId);
+        });
+
+        modelBuilder.Entity<AspNetUserLogin>(entity =>
+        {
+            entity.HasKey(e => new { e.LoginProvider, e.ProviderKey });
+
+            entity.HasIndex(e => e.UserId, "IX_AspNetUserLogins_UserId");
+
+            entity.Property(e => e.LoginProvider).HasMaxLength(128);
+            entity.Property(e => e.ProviderKey).HasMaxLength(128);
+
+            entity.HasOne(d => d.User).WithMany(p => p.AspNetUserLogins).HasForeignKey(d => d.UserId);
+        });
+
+        modelBuilder.Entity<AspNetUserToken>(entity =>
+        {
+            entity.HasKey(e => new { e.UserId, e.LoginProvider, e.Name });
+
+            entity.Property(e => e.LoginProvider).HasMaxLength(128);
+            entity.Property(e => e.Name).HasMaxLength(128);
+
+            entity.HasOne(d => d.User).WithMany(p => p.AspNetUserTokens).HasForeignKey(d => d.UserId);
         });
 
         modelBuilder.Entity<Importacao>(entity =>
@@ -183,9 +256,20 @@ public partial class QuarentenarioContext : DbContext
                     });
         });
 
+        modelBuilder.Entity<Pai>(entity =>
+        {
+            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.Nome)
+                .HasMaxLength(100)
+                .IsUnicode(false)
+                .HasColumnName("nome");
+        });
+
         modelBuilder.Entity<Patogeno>(entity =>
         {
             entity.ToTable("Patogeno");
+
+            entity.HasIndex(e => new { e.Nome, e.IdTipoPatogeno, e.IdTipoControle }, "UX_Patogeno_Nome_IdTipoPatogeno_IdTipoControle").IsUnique();
 
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.IdTipoControle).HasColumnName("idTipoControle");
@@ -194,11 +278,6 @@ public partial class QuarentenarioContext : DbContext
                 .HasMaxLength(100)
                 .IsUnicode(false)
                 .HasColumnName("nome");
-
-            // Índice único composto em Nome, IdTipoPatogeno e IdTipoControle
-            entity.HasIndex(e => new { e.Nome, e.IdTipoPatogeno, e.IdTipoControle })
-                  .IsUnique()
-                  .HasDatabaseName("UX_Patogeno_Nome_IdTipoPatogeno_IdTipoControle");
 
             entity.HasOne(d => d.IdTipoControleNavigation).WithMany(p => p.Patogenos)
                 .HasForeignKey(d => d.IdTipoControle)

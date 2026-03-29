@@ -31,7 +31,7 @@ namespace QuarentenarioWeb.Pages.Analises
             }
 
             var analise = await _context.Analises
-                .Include(p => p.IdClienteNavigation)
+                .Include(p => p.IdPaisNavigation)
                 .Include(p => p.IdMaterialNavigation)
                 .FirstOrDefaultAsync(m => m.Id == id);
 
@@ -53,7 +53,7 @@ namespace QuarentenarioWeb.Pages.Analises
             }
 
             var analise = await _context.Analises
-                .Include(p => p.IdClienteNavigation)
+                .Include(p => p.IdPaisNavigation)
                 .Include(p => p.IdMaterialNavigation)
                 .FirstOrDefaultAsync(m => m.Id == id);
 

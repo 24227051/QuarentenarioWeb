@@ -178,7 +178,7 @@ namespace QuarentenarioWeb.Migrations.Quarentenario
                     b.ToTable("Anexo", (string)null);
                 });
 
-            modelBuilder.Entity("QuarentenarioWeb.Models.Cliente", b =>
+            modelBuilder.Entity("QuarentenarioWeb.Models.Pais", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -196,7 +196,7 @@ namespace QuarentenarioWeb.Migrations.Quarentenario
 
                     b.HasKey("Id");
 
-                    b.ToTable("Cliente", (string)null);
+                    b.ToTable("Pais", (string)null);
                 });
 
             modelBuilder.Entity("QuarentenarioWeb.Models.Importacao", b =>
@@ -341,7 +341,7 @@ namespace QuarentenarioWeb.Migrations.Quarentenario
 
             modelBuilder.Entity("QuarentenarioWeb.Models.Analise", b =>
                 {
-                    b.HasOne("QuarentenarioWeb.Models.Cliente", "IdClienteNavigation")
+                    b.HasOne("QuarentenarioWeb.Models.Pais", "IdClienteNavigation")
                         .WithMany("Analises")
                         .HasForeignKey("IdCliente")
                         .IsRequired()
@@ -425,7 +425,7 @@ namespace QuarentenarioWeb.Migrations.Quarentenario
                     b.Navigation("Anexos");
                 });
 
-            modelBuilder.Entity("QuarentenarioWeb.Models.Cliente", b =>
+            modelBuilder.Entity("QuarentenarioWeb.Models.Pais", b =>
                 {
                     b.Navigation("Analises");
                 });

@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using QuarentenarioWeb.Data;
 using QuarentenarioWeb.Models;
 
-namespace QuarentenarioWeb.Pages.Clientes
+namespace QuarentenarioWeb.Pages.Paises
 {
     public class DetailsModel : PageModel
     {
@@ -19,7 +19,7 @@ namespace QuarentenarioWeb.Pages.Clientes
             _context = context;
         }
 
-        public Cliente Cliente { get; set; } = default!;
+        public Pai Pais { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -28,11 +28,11 @@ namespace QuarentenarioWeb.Pages.Clientes
                 return NotFound();
             }
 
-            var cliente = await _context.Clientes.FirstOrDefaultAsync(m => m.Id == id);
+            var pais = await _context.Pais.FirstOrDefaultAsync(m => m.Id == id);
 
-            if (cliente is not null)
+            if (pais is not null)
             {
-                Cliente = cliente;
+                Pais = pais;
 
                 return Page();
             }

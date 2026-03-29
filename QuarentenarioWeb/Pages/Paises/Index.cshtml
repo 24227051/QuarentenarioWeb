@@ -1,5 +1,5 @@
 ﻿@page
-@model QuarentenarioWeb.Pages.Clientes.IndexModel
+@model QuarentenarioWeb.Pages.Paises.IndexModel
 
 @{
     ViewData["Title"] = "Index";
@@ -14,13 +14,13 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Cliente[0].Nome)
+                @Html.DisplayNameFor(model => model.Pais[0].Nome)
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.Cliente) {
+@foreach (var item in Model.Pais) {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Nome)

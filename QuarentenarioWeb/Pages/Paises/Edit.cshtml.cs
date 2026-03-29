@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using QuarentenarioWeb.Data;
 using QuarentenarioWeb.Models;
 
-namespace QuarentenarioWeb.Pages.Clientes
+namespace QuarentenarioWeb.Pages.Paises
 {
     public class EditModel : PageModel
     {
@@ -21,7 +21,7 @@ namespace QuarentenarioWeb.Pages.Clientes
         }
 
         [BindProperty]
-        public Cliente Cliente { get; set; } = default!;
+        public Pai Pais { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -30,12 +30,12 @@ namespace QuarentenarioWeb.Pages.Clientes
                 return NotFound();
             }
 
-            var cliente =  await _context.Clientes.FirstOrDefaultAsync(m => m.Id == id);
-            if (cliente == null)
+            var pais =  await _context.Pais.FirstOrDefaultAsync(m => m.Id == id);
+            if (pais == null)
             {
                 return NotFound();
             }
-            Cliente = cliente;
+            Pais = pais;
             return Page();
         }
 
@@ -48,7 +48,7 @@ namespace QuarentenarioWeb.Pages.Clientes
                 return Page();
             }
 
-            _context.Attach(Cliente).State = EntityState.Modified;
+            _context.Attach(Pais).State = EntityState.Modified;
 
             try
             {
@@ -56,7 +56,7 @@ namespace QuarentenarioWeb.Pages.Clientes
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!ClienteExists(Cliente.Id))
+                if (!PaisExists(Pais.Id))
                 {
                     return NotFound();
                 }
@@ -69,9 +69,9 @@ namespace QuarentenarioWeb.Pages.Clientes
             return RedirectToPage("./Index");
         }
 
-        private bool ClienteExists(int id)
+        private bool PaisExists(int id)
         {
-            return _context.Clientes.Any(e => e.Id == id);
+            return _context.Pais.Any(e => e.Id == id);
         }
     }
 }

@@ -24,7 +24,7 @@ namespace QuarentenarioWeb.Pages.Analises
         public async Task OnGetAsync()
         {
             Analise = await _context.Analises
-                .Include(a => a.IdClienteNavigation)
+                .Include(a => a.IdPaisNavigation)
                 .Include(a => a.IdMaterialNavigation).ToListAsync();
         }
     }
