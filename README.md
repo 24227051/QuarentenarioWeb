@@ -22,8 +22,8 @@ Gerenciador de amostras no meio bioquímico através de uma interface web com pe
 - Gerenciador de Tipos Controle
 - Gerenciador de Tipos Patógeno
 
-## Requisitos
-.NET 10
+## Tecnologias
+.NET 10, ASP.NET Core Razor Pages, EF Core e Identity
 
 ## Primeiros passos
 1. Baixar e instalar o [Visual Studio Community](https://visualstudio.microsoft.com/vs/community/) que é uma IDE gratuita e completa para estudantes, projetos de código aberto e desenvolvedores individuais..
